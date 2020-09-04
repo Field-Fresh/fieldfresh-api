@@ -1,0 +1,13 @@
+version: "3.3"
+services:
+  db:
+    image: library/postgres:11
+    restart: always
+    environment:
+      - POSTGRES_DB=fieldfresh
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=pass
+    expose:
+      - "8888"
+    ports:
+      - "8888:5432"
