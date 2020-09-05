@@ -33,7 +33,7 @@ class SigninUsecase {
       return SignInResponseData(
          tokens = token,
          verificationRequired = token == null,
-         user = profile
+         user = token?.let { profile }
       )
    }
 }

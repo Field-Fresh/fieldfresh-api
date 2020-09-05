@@ -13,5 +13,5 @@ class SignInResponse (
 ) {
    val cognitoJWT: CognitoJWT? = data.tokens
    val requireVerification: Boolean = data.verificationRequired
-   val user: UserView = UserView(data.user)
+   val user: UserView? = data.user?.let{ UserView(it) }
 }
