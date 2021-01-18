@@ -37,7 +37,7 @@ class VerifyCodeUsecase {
          ).let {
             VerificationResponseData(
                tokens = it.tokens,
-               user = it.user
+               user = it.user!!
             )
          }
       }

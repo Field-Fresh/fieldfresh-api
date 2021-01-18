@@ -25,6 +25,10 @@ class AuthController {
    fun signin(@Valid @RequestBody signInRequest: SignInRequest): SignInResponse =
       SignInResponse(authService.signin(signInRequest.toData()))
 
+   @PostMapping("/refresh")
+   fun refresh(@Valid @RequestBody request: RefreshRequest): SignInResponse =
+       SignInResponse(authService.refresh(request.refreshToken))
+
    @PostMapping("/verify")
    fun verify(
       @RequestBody request: SignUpConfirmationRequest
@@ -37,13 +41,9 @@ class AuthController {
       authService.resendVerification(request.toData())
    }
 
-   /**
-    * Post SignUpRequest to create a new user in aws cognito
-    */
    @PostMapping("/signup")
    fun signup(@Valid @RequestBody signUpRequest: SignUpRequest): UserView =
       UserView(authService.signup(signUpRequest.toData()))
-
 
    @PostMapping("/forgotpassword")
    fun forgotPassword(@Valid @RequestBody forgotPasswordRequest: ForgotPasswordRequest): UserView =
@@ -53,9 +53,6 @@ class AuthController {
    fun confirmForgotPassword(@Valid @RequestBody confirmForgotPasswordRequest: ConfirmForgotPasswordRequest): UserView =
        UserView(authService.confirmForgotPassword(confirmForgotPasswordRequest.toData()))
 
-   /**
-    * Get aws tokens with authorization code
-    */
    @GetMapping("/token")
    fun token(@RequestParam("code") code: String): CognitoJWTView? =
       CognitoJWTView(authService.getToken(code))

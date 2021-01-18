@@ -2,6 +2,7 @@ package com.fieldfreshmarket.api.core.cognito.client
 
 import com.fieldfreshmarket.api.core.cognito.CognitoJWT
 import com.fieldfreshmarket.api.core.cognito.client.models.CognitoUser
+import org.springframework.boot.context.properties.bind.Bindable.mapOf
 import org.springframework.http.HttpEntity
 import org.springframework.util.LinkedMultiValueMap
 import org.springframework.web.client.RestTemplate
@@ -27,6 +28,30 @@ class CognitoUserClient(
       ).userSub()
    }
 
+   fun refresh(refreshToken: String): CognitoJWT {
+      val authParams = mapOf(
+          "REFRESH_TOKEN" to refreshToken
+      )
+      val authResponse: AdminInitiateAuthResponse = identityProviderClient.adminInitiateAuth(
+          AdminInitiateAuthRequest.builder()
+              .authFlow(AuthFlowType.REFRESH_TOKEN_AUTH)
+              .userPoolId(cognitoProperties.cognitoUserPoolId)
+              .clientId(cognitoProperties.cognitoUserClientId)
+              .authParameters(authParams)
+              .build()
+      )
+
+      val authenticationResult = authResponse.authenticationResult()
+      return authenticationResult?.let {
+         CognitoJWT(
+             id_token = authenticationResult.idToken(),
+             access_token = authenticationResult.accessToken(),
+             refresh_token = authenticationResult.refreshToken(),
+             expires_in = authenticationResult.expiresIn(),
+             token_type = authenticationResult.tokenType()
+         )
+      } ?: throw IllegalStateException("Unable to use Refresh Token.")
+   }
 
    fun changePassword(cognitoChangePasswordInfo: CognitoChangePasswordInfo): ChangePasswordResponse {
       return identityProviderClient.changePassword(

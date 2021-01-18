@@ -34,6 +34,9 @@ class AuthService {
    private lateinit var exchangeOathCodeUsecase: ExchangeOathCodeUsecase
 
    @Autowired
+   private lateinit var refreshUsecase: RefreshUsecase
+
+   @Autowired
    private lateinit var generateAccessGrant: GenerateAccessGrant
 
    fun signin(signInData: SignInData): SignInResponseData {
@@ -45,6 +48,10 @@ class AuthService {
 
    fun signup(signUpData: SignUpData): User =
       signupUsecase.execute(signUpData)
+
+   fun refresh(token: String): SignInResponseData {
+      return refreshUsecase.execute(token)
+   }
 
    fun forgotPassword(forgotPasswordData: ForgotPasswordData): User =
        forgotPasswordUsecase.execute(forgotPasswordData)
