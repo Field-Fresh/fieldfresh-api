@@ -1,6 +1,7 @@
 package com.fieldfreshmarket.api.model
 
 import javax.persistence.Entity
+import javax.persistence.OneToMany
 import javax.persistence.Table
 
 @Entity
@@ -12,4 +13,7 @@ class User(
    var firstName: String? = null,
    var lastName: String? = null,
    var phone: String? = null
-) : BaseModel()
+) : BaseModel() {
+    @OneToMany(mappedBy = "ratingUser")
+    val ratings: List<Rating> = listOf()
+}
