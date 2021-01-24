@@ -6,6 +6,11 @@ CREATE TABLE proxies (
     user_id             char(24) references users(id),
     display_name varchar,
     description varchar,
+    street_address varchar,
+    postal_code varchar,
+    city varchar,
+    province varchar,
+    country varchar,
     longitude float not null,
     latitude float not null,
     geo geometry,
@@ -14,6 +19,11 @@ CREATE TABLE proxies (
 );
 
 CREATE index on proxies (geo);
+CREATE index on proxies (street_address);
+CREATE index on proxies (postal_code);
+CREATE index on proxies (city);
+CREATE index on proxies (province);
+CREATE index on proxies (country);
 CREATE index on proxies (longitude, latitude);
 CREATE index on proxies (created_at);
 CREATE index on proxies (updated_at);

@@ -15,6 +15,11 @@ class Proxy(
     var user: User,
     var displayName: String? = null,
     var description: String? = null,
+    var streetAddress: String? = null,
+    var postalCode: String? = null,
+    var city: String? = null,
+    var province: String? = null,
+    var country: String? = null,
     var longitude: Double? = null,
     var latitude: Double? = null
 ) : BaseModel() {
