@@ -16,4 +16,7 @@ class User(
 ) : BaseModel() {
     @OneToMany(mappedBy = "ratingUser")
     val ratings: List<Rating> = listOf()
+
+    @OneToMany(mappedBy = "user")
+    val proxies: List<Proxy> = listOf()
 }

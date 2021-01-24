@@ -3,15 +3,12 @@ package com.fieldfreshmarket.api.model
 import com.fieldfreshmarket.api.model.order.Order
 import com.fieldfreshmarket.api.model.order.buy.BuyOrder
 import com.fieldfreshmarket.api.model.order.sell.SellOrder
-import javax.persistence.Entity
-import javax.persistence.OneToMany
-import javax.persistence.OneToOne
-import javax.persistence.Table
+import javax.persistence.*
 
 @Entity
 @Table(name = "proxies")
 class Proxy(
-    @OneToOne
+    @ManyToOne
     var user: User,
     var displayName: String? = null,
     var description: String? = null,
