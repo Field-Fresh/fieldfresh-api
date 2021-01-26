@@ -28,6 +28,9 @@ class SignupUsecase {
       if (profile?.cognitoSub != null)
          throw IllegalArgumentException("User with email: ${data.email} already exists")
 
+      if (data.phone != null && data.phone.length > 10)
+         throw IllegalArgumentException("Invalid phone number")
+
       val cognitoSub = cognitoUserClient.signup(cognitoSignupInfo = data)
 
       return profile?.let {
@@ -42,9 +45,9 @@ class SignupUsecase {
             email = data.email,
             verified = false,
             cognitoSub = cognitoSub,
-            firstName = null,
-            lastName = null,
-            phone = null
+            firstName = data.firstName,
+            lastName = data.lastName,
+            phone = data.phone
          )
       )
    }

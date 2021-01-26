@@ -10,15 +10,15 @@ import javax.persistence.*
 class Proxy(
     @ManyToOne
     var user: User,
-    var displayName: String? = null,
-    var description: String? = null,
-    var streetAddress: String? = null,
-    var postalCode: String? = null,
-    var city: String? = null,
-    var province: String? = null,
-    var country: String? = null,
-    var longitude: Double? = null,
-    var latitude: Double? = null
+    var displayName: String,
+    var description: String,
+    var streetAddress: String,
+    var postalCode: String,
+    var city: String,
+    var province: String,
+    var country: String,
+    var longitude: Double,
+    var latitude: Double
 ) : BaseModel() {
     @OneToMany(mappedBy = "proxy")
     val orders: List<Order> = listOf()

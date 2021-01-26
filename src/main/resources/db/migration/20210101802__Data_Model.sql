@@ -133,4 +133,3 @@ CREATE TABLE ratings (
 CREATE index on ratings (rating_value);
 CREATE index on ratings (created_at);
 CREATE index on ratings (updated_at);
-
