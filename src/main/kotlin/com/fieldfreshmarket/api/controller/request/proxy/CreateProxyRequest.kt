@@ -8,8 +8,8 @@ class CreateProxyRequest(
     val userId: String,
     @get:NonNull
     val name: String,
-    @get:NonNull
-    val description: String,
+
+    val description: String?,
     @get:NonNull
     val streetAddress: String,
     @get:NonNull

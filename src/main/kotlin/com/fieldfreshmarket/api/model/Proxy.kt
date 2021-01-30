@@ -11,7 +11,7 @@ class Proxy(
     @ManyToOne
     var user: User,
     var displayName: String,
-    var description: String,
+    var description: String?,
     var streetAddress: String,
     var postalCode: String,
     var city: String,

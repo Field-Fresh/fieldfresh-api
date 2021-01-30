@@ -9,7 +9,7 @@ class ProxyView (
    proxy: Proxy
 ) {
    val displayName: String = proxy.displayName
-   val description: String = proxy.description
+   val description: String? = proxy.description
    val streetAddress: String = proxy.streetAddress
    val city: String = proxy.city
    val country: String = proxy.country
