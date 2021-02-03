@@ -46,7 +46,7 @@ CREATE index on products (updated_at);
 
 CREATE TABLE orders (
     id                  character(24) DEFAULT fieldfresh_id('o'::text) NOT NULL PRIMARY KEY,
-    proxy_id             char(24) references proxies(id),
+    proxy_id             char(25) references proxies(id),
     status varchar,
     round_updated_timestamp timestamp,
     round integer,
