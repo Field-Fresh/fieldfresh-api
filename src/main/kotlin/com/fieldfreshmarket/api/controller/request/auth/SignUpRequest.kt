@@ -4,19 +4,26 @@ import com.fieldfreshmarket.api.data.auth.SignUpData
 import javax.validation.constraints.Email
 import javax.validation.constraints.NotNull
 
-class SignUpRequest (
+class SignUpRequest(
 
-   @get:Email
-   @get:NotNull
-   val email: String?,
+    @get:Email
+    @get:NotNull
+    val email: String?,
 
-   @get:NotNull
-   val password: String?
+    @get:NotNull
+    val password: String?,
+
+    val firstName: String?,
+    val lastName: String?,
+    val phone: String?
 
 ) {
-   fun toData(): SignUpData =
-      SignUpData(
-         email = email!!,
-         password = password!!
-      )
+    fun toData(): SignUpData =
+        SignUpData(
+            email = email!!,
+            password = password!!,
+            firstName = firstName,
+            lastName = lastName,
+            phone = phone
+        )
 }

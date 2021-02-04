@@ -10,8 +10,8 @@ abstract class BaseModel(
     @Column(insertable = false, columnDefinition = "bpchar")
     var id: String? = null
 ) {
-    val createdAt: Instant = Instant.now()
-    var updatedAt: Instant? = Instant.now()
+    open val createdAt: Instant = Instant.now()
+    open var updatedAt: Instant? = Instant.now()
 
     @PreUpdate
     fun update() {
