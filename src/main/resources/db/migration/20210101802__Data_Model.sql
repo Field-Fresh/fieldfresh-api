@@ -30,9 +30,10 @@ CREATE index on proxies (updated_at);
 
 CREATE TABLE products (
     id                  character(24) DEFAULT fieldfresh_id('p'::text) NOT NULL PRIMARY KEY,
-    display_name varchar,
+    type varchar,
     category varchar,
     family varchar,
+    unit varchar,
     class_type varchar,
     created_at timestamp,
     updated_at timestamp
@@ -85,7 +86,7 @@ CREATE TABLE buy_products (
     earliest_date timestamp ,
     latest_date timestamp ,
     max_price_cents bigint,
-    quantity bigint,
+    volume double,
     buy_order_id char(25) references buy_orders(id),
     product_id char(24) references products(id),
     created_at timestamp,
@@ -104,7 +105,7 @@ CREATE TABLE sell_products (
     earliest_date timestamp ,
     latest_date timestamp ,
     min_price_cents bigint,
-    quantity bigint,
+    volume double,
     picture_count integer,
     sell_order_id char(25) references sell_orders(id),
     product_id char(24) references products(id),

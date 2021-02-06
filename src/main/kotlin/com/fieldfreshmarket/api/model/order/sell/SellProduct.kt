@@ -14,7 +14,7 @@ class SellProduct(
     val earliestDate: Instant?,
     val latestDate: Instant?,
     val minPriceCents: Long,
-    val quantity: Long,
+    val volume: Double,
     // This is used to generate the S3 image URL based on the ID
     val pictureCount: Int,
     @ManyToOne
