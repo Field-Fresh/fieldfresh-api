@@ -1,5 +1,6 @@
 package com.fieldfreshmarket.api.controller
 
+import com.fieldfreshmarket.api.controller.response.product.GetPendingProductsResponse
 import com.fieldfreshmarket.api.controller.response.product.ProductsGetResponse
 import com.fieldfreshmarket.api.core.Controller
 import com.fieldfreshmarket.api.model.order.OrderSide
@@ -22,6 +23,6 @@ class ProductController : Controller() {
     fun get() = ProductsGetResponse(productService.get())
 
     @GetMapping("/pending")
-    fun getPendingProducts(@RequestParam side: OrderSide) = productService.getPendingProducts(side)
+    fun getPendingProducts(@RequestParam side: OrderSide) = GetPendingProductsResponse(productService.getPendingProducts(side))
 
 }

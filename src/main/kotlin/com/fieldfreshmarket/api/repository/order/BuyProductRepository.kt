@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query
 
 interface BuyProductRepository : BaseRepository<BuyProduct> {
 
+    //Does a CROSS JOIN but its safe since BuyProduct.id 1:1 with Order.id
     @Query(
         """
             select bp.product.id as id, SUM(bp.volume) as totalVolume
