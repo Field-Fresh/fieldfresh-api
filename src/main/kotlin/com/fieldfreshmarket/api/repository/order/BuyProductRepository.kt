@@ -8,10 +8,10 @@ interface BuyProductRepository : BaseRepository<BuyProduct> {
 
     @Query(
         """
-            select bp.product, SUM(bp.volume) as totalVolume
+            select bp.product.id as id, SUM(bp.volume) as totalVolume
             from BuyProduct bp
-            where bp.buyOrder.status = OrderStatus.PENDING
-            group by bp.product
+            where bp.buyOrder.status = 'PENDING'
+            group by bp.product.id
             order by totalVolume
         """
     )
