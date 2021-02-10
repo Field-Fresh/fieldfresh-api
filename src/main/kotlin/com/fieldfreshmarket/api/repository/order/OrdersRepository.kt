@@ -1,5 +1,6 @@
 package com.fieldfreshmarket.api.repository.order
 
+import com.fieldfreshmarket.api.model.User
 import com.fieldfreshmarket.api.model.order.Order
 import com.fieldfreshmarket.api.model.order.OrderSide
 import com.fieldfreshmarket.api.model.order.OrderStatus
@@ -15,8 +16,9 @@ interface OrdersRepository : BaseRepository<Order>{
             select o 
             from Order o
             where (:side = o.side OR :side is null)
-            AND :status = o.status
+            AND :status = o.status 
+            AND :user = o.proxy.user
         """
     )
-    fun findAllBy(status: OrderStatus, side: OrderSide?): List<Order>
+    fun findAllBy(user: User, status: OrderStatus, side: OrderSide?): List<Order>
 }

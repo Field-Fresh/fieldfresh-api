@@ -1,6 +1,6 @@
 package com.fieldfreshmarket.api.services.orders
 
-import com.fieldfreshmarket.api.data.orders.GetOrdersRequestData
+import com.fieldfreshmarket.api.data.orders.GetOrdersData
 import com.fieldfreshmarket.api.model.order.Order
 import com.fieldfreshmarket.api.repository.order.OrdersRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -16,6 +16,6 @@ class OrdersService {
     @Autowired
     private lateinit var orderRepository: OrdersRepository
 
-    fun getOrders(data: GetOrdersRequestData): List<Order> = orderRepository.findAllBy(data.status, data.side)
+    fun getOrders(data: GetOrdersData): List<Order> = orderRepository.findAllBy(data.grant.user, data.status, data.side)
 
 }

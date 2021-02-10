@@ -15,6 +15,6 @@ class OrderController : Controller() {
     private lateinit var ordersService: OrdersService
 
     @GetMapping("")
-    fun create(request: GetOrdersRequest): GetOrdersResponse =
-        GetOrdersResponse(ordersService.getOrders(request.toData()))
+    fun get(request: GetOrdersRequest): GetOrdersResponse =
+        GetOrdersResponse(ordersService.getOrders(request.toData(grant)))
 }
