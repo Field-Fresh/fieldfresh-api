@@ -2,6 +2,7 @@ package com.fieldfreshmarket.api.model.order.buy
 
 import com.fieldfreshmarket.api.model.Proxy
 import com.fieldfreshmarket.api.model.order.Order
+import com.fieldfreshmarket.api.model.order.OrderSide
 import javax.persistence.*
 
 @Entity
@@ -10,4 +11,4 @@ class BuyOrder(
     proxy: Proxy,
     @OneToMany(mappedBy = "buyOrder", cascade = [CascadeType.REMOVE])
     val buyProducts: List<BuyProduct>
-): Order(proxy)
+): Order(proxy, side = OrderSide.BUY)
