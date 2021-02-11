@@ -30,9 +30,10 @@ CREATE index on proxies (updated_at);
 
 CREATE TABLE products (
     id                  character(24) DEFAULT fieldfresh_id('p'::text) NOT NULL PRIMARY KEY,
-    display_name varchar,
+    type varchar,
     category varchar,
     family varchar,
+    unit varchar,
     class_type varchar,
     created_at timestamp,
     updated_at timestamp
@@ -45,7 +46,7 @@ CREATE index on products (created_at);
 CREATE index on products (updated_at);
 
 CREATE TABLE orders (
-    id                  character(24) DEFAULT fieldfresh_id('o'::text) NOT NULL PRIMARY KEY,
+    id                  character(25) NOT NULL PRIMARY KEY,
     proxy_id             char(25) references proxies(id),
     status varchar,
     round_updated_timestamp timestamp,
@@ -62,7 +63,6 @@ CREATE index on orders (updated_at);
 
 CREATE TABLE buy_orders (
     id                  character(25) DEFAULT fieldfresh_id('bo'::text) NOT NULL PRIMARY KEY,
-    order_id char(24) references orders(id),
     created_at timestamp,
     updated_at timestamp
 );
@@ -72,7 +72,6 @@ CREATE index on buy_orders (updated_at);
 
 CREATE TABLE sell_orders (
     id                  character(25) DEFAULT fieldfresh_id('so'::text) NOT NULL PRIMARY KEY,
-    order_id char(24) references orders(id),
     created_at timestamp,
     updated_at timestamp
 );
@@ -85,7 +84,7 @@ CREATE TABLE buy_products (
     earliest_date timestamp ,
     latest_date timestamp ,
     max_price_cents bigint,
-    quantity bigint,
+    volume float,
     buy_order_id char(25) references buy_orders(id),
     product_id char(24) references products(id),
     created_at timestamp,
@@ -95,7 +94,7 @@ CREATE TABLE buy_products (
 CREATE index on buy_products (earliest_date);
 CREATE index on buy_products (latest_date);
 CREATE index on buy_products (max_price_cents);
-CREATE index on buy_products (quantity);
+CREATE index on buy_products (volume);
 CREATE index on buy_products (created_at);
 CREATE index on buy_products (updated_at);
 
@@ -104,7 +103,7 @@ CREATE TABLE sell_products (
     earliest_date timestamp ,
     latest_date timestamp ,
     min_price_cents bigint,
-    quantity bigint,
+    volume float,
     picture_count integer,
     sell_order_id char(25) references sell_orders(id),
     product_id char(24) references products(id),
@@ -115,7 +114,7 @@ CREATE TABLE sell_products (
 CREATE index on sell_products (earliest_date);
 CREATE index on sell_products (latest_date);
 CREATE index on sell_products (min_price_cents);
-CREATE index on sell_products (quantity);
+CREATE index on sell_products (volume);
 CREATE index on sell_products (created_at);
 CREATE index on sell_products (updated_at);
 

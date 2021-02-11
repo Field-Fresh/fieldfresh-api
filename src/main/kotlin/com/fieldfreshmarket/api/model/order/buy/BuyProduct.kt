@@ -14,7 +14,7 @@ class BuyProduct(
     val earliestDate: Instant?,
     val latestDate: Instant?,
     val maxPriceCents: Long,
-    val quantity: Long,
+    val volume: Double,
     @ManyToOne
     @JoinColumn(name="buy_order_id")
     val buyOrder: BuyOrder,

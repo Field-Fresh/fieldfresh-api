@@ -17,7 +17,9 @@ open class Order(
     @Enumerated(EnumType.STRING)
     open var status: OrderStatus = OrderStatus.PENDING,
     open var roundUpdatedTimestamp: Instant = Instant.now(),
-    open var round: Int = 0
+    open var round: Int = 0,
+    @Enumerated(EnumType.STRING)
+    open var side: OrderSide,
 ) : BaseModel() {
 
     @OneToMany(mappedBy = "order")
