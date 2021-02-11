@@ -9,6 +9,8 @@ import javax.persistence.*
 @Table(name="sell_orders")
 class SellOrder(
     proxy: Proxy,
-    @OneToMany(mappedBy = "sellOrder", cascade = [CascadeType.REMOVE])
-    val sellProducts: List<SellProduct>
-): Order(proxy, side = OrderSide.SELL)
+): Order(proxy, side = OrderSide.SELL) {
+
+    @OneToMany(mappedBy = "sellOrder", cascade = [CascadeType.REMOVE, CascadeType.PERSIST])
+    var sellProducts: List<SellProduct> = listOf()
+}

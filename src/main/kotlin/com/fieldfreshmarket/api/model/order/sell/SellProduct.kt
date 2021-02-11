@@ -16,11 +16,11 @@ class SellProduct(
     val minPriceCents: Long,
     val volume: Double,
     // This is used to generate the S3 image URL based on the ID
-    val pictureCount: Int,
     @ManyToOne(optional = false)
     @JoinColumn(name = "sell_order_id")
     val sellOrder: SellOrder,
     @ManyToOne(optional = false)
     @JoinColumn(name="product_id")
-    val product: Product
+    val product: Product,
+    val pictureUrl: String? = null
 ): BaseModel()
