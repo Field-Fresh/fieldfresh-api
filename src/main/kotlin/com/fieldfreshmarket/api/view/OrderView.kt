@@ -5,6 +5,7 @@ import com.fieldfreshmarket.api.model.Proxy
 import com.fieldfreshmarket.api.model.User
 import com.fieldfreshmarket.api.model.order.Order
 import com.fieldfreshmarket.api.model.order.OrderSide
+import com.fieldfreshmarket.api.model.order.OrderStatus
 
 @JsonSerialize
 class OrderView (
@@ -12,4 +13,5 @@ class OrderView (
 ) {
    val id: String = order.id!!
    val side: OrderSide = order.side
+   val status: OrderStatus = order.status
 }
