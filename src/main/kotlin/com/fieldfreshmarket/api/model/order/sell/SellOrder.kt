@@ -7,6 +7,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name="sell_orders")
+@PrimaryKeyJoinColumn(name="id")
 class SellOrder(
     proxy: Proxy,
 ): Order(proxy, side = OrderSide.SELL) {

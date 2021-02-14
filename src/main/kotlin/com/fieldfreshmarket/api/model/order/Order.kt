@@ -11,7 +11,7 @@ import javax.persistence.*
 @Inheritance(
     strategy = InheritanceType.JOINED
 )
-open class Order(
+abstract class Order(
     @ManyToOne
     open val proxy: Proxy,
     @Enumerated(EnumType.STRING)

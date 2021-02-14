@@ -9,23 +9,24 @@ import org.springframework.security.config.http.SessionCreationPolicy
 
 @EnableWebSecurity
 class AuthConfig(
-   private val cognitoJwtProcessor: CognitoJwtProcessor,
-   private val properties: FieldFreshProperties
+    private val cognitoJwtProcessor: CognitoJwtProcessor,
+    private val properties: FieldFreshProperties
 ) : WebSecurityConfigurerAdapter() {
-   override fun configure(http: HttpSecurity) {
-      http
-         .csrf().disable()
-         .authorizeRequests()
-         .antMatchers(*properties.unauthorizedEndpoints.toTypedArray()).permitAll()
-         .anyRequest().authenticated()
-         .and()
-         .addFilter(
-            CognitoAuthFilter(
-               processor = cognitoJwtProcessor,
-               authenticationManager = authenticationManager()
+    override fun configure(http: HttpSecurity) {
+        http
+            .csrf().disable()
+            .cors().disable()
+            .authorizeRequests()
+            .antMatchers(*properties.unauthorizedEndpoints.toTypedArray()).permitAll()
+            .anyRequest().authenticated()
+            .and()
+            .addFilter(
+                CognitoAuthFilter(
+                    processor = cognitoJwtProcessor,
+                    authenticationManager = authenticationManager()
+                )
             )
-         )
-         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
-   }
+    }
 }

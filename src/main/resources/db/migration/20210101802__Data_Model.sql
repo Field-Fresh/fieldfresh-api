@@ -46,7 +46,7 @@ CREATE index on products (created_at);
 CREATE index on products (updated_at);
 
 CREATE TABLE orders (
-    id                  character(25) NOT NULL PRIMARY KEY,
+    id                  character(25) DEFAULT fieldfresh_id('or'::text) PRIMARY KEY,
     proxy_id             char(25) references proxies(id),
     status varchar,
     round_updated_timestamp timestamp,
@@ -62,22 +62,14 @@ CREATE index on orders (created_at);
 CREATE index on orders (updated_at);
 
 CREATE TABLE buy_orders (
-    id                  character(25) DEFAULT fieldfresh_id('bo'::text) NOT NULL PRIMARY KEY,
-    created_at timestamp,
-    updated_at timestamp
+    id                  char(25) NOT NULL references orders(id),
+    primary key (id)
 );
-
-CREATE index on buy_orders (created_at);
-CREATE index on buy_orders (updated_at);
 
 CREATE TABLE sell_orders (
-    id                  character(25) DEFAULT fieldfresh_id('so'::text) NOT NULL PRIMARY KEY,
-    created_at timestamp,
-    updated_at timestamp
+    id                  char(25) NOT NULL references orders(id),
+    primary key (id)
 );
-
-CREATE index on sell_orders (created_at);
-CREATE index on sell_orders (updated_at);
 
 CREATE TABLE buy_products (
     id                  character(26) DEFAULT fieldfresh_id('bup'::text) NOT NULL PRIMARY KEY,
