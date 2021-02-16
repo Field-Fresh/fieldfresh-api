@@ -46,6 +46,7 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-web"
     implementation "org.springframework.boot:spring-boot-starter-security"
     implementation "org.springframework.boot:spring-boot-starter-jdbc"
+    implementation "org.hibernate:hibernate-search-orm:5.10.9.Final"
     implementation "com.nimbusds:nimbus-jose-jwt:5.12"
     implementation 'org.postgresql:postgresql:42.2.7'
     implementation platform("software.amazon.awssdk:bom:$aws_version")

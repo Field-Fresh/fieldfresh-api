@@ -6,14 +6,13 @@ import com.fieldfreshmarket.api.model.Product
 import com.fieldfreshmarket.api.model.Proxy
 import com.fieldfreshmarket.api.model.order.sell.SellOrder
 import com.fieldfreshmarket.api.model.order.sell.SellProduct
-import com.fieldfreshmarket.api.repository.ProductsRepository
+import com.fieldfreshmarket.api.repository.products.ProductsRepository
 import com.fieldfreshmarket.api.repository.ProxyRepository
 import com.fieldfreshmarket.api.repository.order.SellOrdersRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import java.time.Instant
 import java.time.LocalDate
-import java.time.ZoneId
 import java.time.ZoneOffset
 import javax.persistence.EntityNotFoundException
 

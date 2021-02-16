@@ -2,13 +2,10 @@ package com.fieldfreshmarket.api.usecase.orders.sell
 
 import com.fieldfreshmarket.api.data.orders.sell.CreateSellOrderData
 import com.fieldfreshmarket.api.data.orders.sell.CreateSellProductData
-import com.fieldfreshmarket.api.model.order.sell.SellOrder
-import com.fieldfreshmarket.api.model.order.sell.SellProduct
-import com.fieldfreshmarket.api.repository.ProductsRepository
+import com.fieldfreshmarket.api.repository.products.ProductsRepository
 import com.fieldfreshmarket.api.repository.ProxyRepository
 import com.fieldfreshmarket.api.repository.order.SellOrdersRepository
 import com.nhaarman.mockitokotlin2.any
-import com.nhaarman.mockitokotlin2.eq
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.whenever
 import junit.framework.Assert.assertEquals
@@ -18,7 +15,6 @@ import org.junit.runner.RunWith
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
-import org.springframework.beans.factory.annotation.Autowired
 import stubs.*
 import java.time.Instant
 import java.time.LocalDate
