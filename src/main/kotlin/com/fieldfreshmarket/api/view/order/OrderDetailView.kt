@@ -13,7 +13,7 @@ open class OrderDetailView (
    order: Order
 ) {
    val side: OrderSide = order.side
-   val status: OrderStatus = order.status
+   val isActive: Boolean = order.isActive
    val roundUpdatedTimestamp: Instant = order.roundUpdatedTimestamp
    val round: Int = order.round
    val proxyId: String = order.proxy.id!!

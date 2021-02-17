@@ -1,7 +1,7 @@
 package com.fieldfreshmarket.api.usecase.orders.sell
 
 import com.fieldfreshmarket.api.data.orders.sell.CreateSellOrderData
-import com.fieldfreshmarket.api.data.orders.sell.CreateSellProductData
+import com.fieldfreshmarket.api.data.orders.sell.CreateBuyProductData
 import com.fieldfreshmarket.api.repository.products.ProductsRepository
 import com.fieldfreshmarket.api.repository.ProxyRepository
 import com.fieldfreshmarket.api.repository.order.SellOrdersRepository
@@ -39,7 +39,7 @@ class CreateSellOrderUsecaseTest {
 
     @Test(expected = IllegalStateException::class)
     fun testFailIfNoProducts() {
-        val data = CreateSellOrderData(grant(), TEST_PROXY_ID, sellProducts = listOf())
+        val data = CreateSellOrderData(grant(), TEST_PROXY_ID, buyProducts = listOf())
 
         usecase.execute(data)
     }
@@ -52,7 +52,7 @@ class CreateSellOrderUsecaseTest {
             createSellProductData(productId = TEST_PRODUCT_ID_2),
             createSellProductData(productId = TEST_PRODUCT_ID),
         )
-        val data = CreateSellOrderData(grant(), TEST_PROXY_ID, sellProducts = sellProducts)
+        val data = CreateSellOrderData(grant(), TEST_PROXY_ID, buyProducts = sellProducts)
         usecase.execute(data)
     }
 
@@ -61,7 +61,7 @@ class CreateSellOrderUsecaseTest {
         val sellProducts = listOf(
             createSellProductData(productId = TEST_PRODUCT_ID, earliestDate = LocalDate.now()),
         )
-        val data = CreateSellOrderData(grant(), TEST_PROXY_ID, sellProducts = sellProducts)
+        val data = CreateSellOrderData(grant(), TEST_PROXY_ID, buyProducts = sellProducts)
         usecase.execute(data)
     }
 
@@ -72,7 +72,7 @@ class CreateSellOrderUsecaseTest {
         val sellProducts = listOf(
             createSellProductData(productId = TEST_PRODUCT_ID, earliestDate = earliestDate, latestDate = latestDate),
         )
-        val data = CreateSellOrderData(grant(), TEST_PROXY_ID, sellProducts = sellProducts)
+        val data = CreateSellOrderData(grant(), TEST_PROXY_ID, buyProducts = sellProducts)
         usecase.execute(data)
     }
 
@@ -82,7 +82,7 @@ class CreateSellOrderUsecaseTest {
             createSellProductData(productId = TEST_PRODUCT_ID),
             createSellProductData(productId = TEST_PRODUCT_ID_2),
         )
-        val data = CreateSellOrderData(grant(), TEST_PROXY_ID, sellProducts = sellProducts)
+        val data = CreateSellOrderData(grant(), TEST_PROXY_ID, buyProducts = sellProducts)
         whenever(proxyRepository.findByIdForUser(any(), any())).thenReturn(proxy())
         usecase.execute(data)
     }
@@ -92,7 +92,7 @@ class CreateSellOrderUsecaseTest {
         val sellProducts = listOf(
             createSellProductData(productId = TEST_PRODUCT_ID),
         )
-        val data = CreateSellOrderData(grant(), TEST_PROXY_ID, sellProducts = sellProducts)
+        val data = CreateSellOrderData(grant(), TEST_PROXY_ID, buyProducts = sellProducts)
         usecase.execute(data)
     }
 
@@ -110,7 +110,7 @@ class CreateSellOrderUsecaseTest {
         val sellProducts = listOf(
             sellProductData,
         )
-        val data = CreateSellOrderData(grant(), TEST_PROXY_ID, sellProducts = sellProducts)
+        val data = CreateSellOrderData(grant(), TEST_PROXY_ID, buyProducts = sellProducts)
         val proxy = proxy()
         whenever(proxyRepository.findByIdForUser(any(), any())).thenReturn(proxy)
         val product = product(id = TEST_PRODUCT_ID)
@@ -132,7 +132,7 @@ class CreateSellOrderUsecaseTest {
         productId: String,
         earliestDate: LocalDate = LocalDate.now().plusDays(1),
         latestDate: LocalDate = LocalDate.now().plusDays(2)
-    ) = CreateSellProductData(
+    ) = CreateBuyProductData(
         earliestDate = earliestDate,
         latestDate = latestDate,
         minPriceCents = 10,

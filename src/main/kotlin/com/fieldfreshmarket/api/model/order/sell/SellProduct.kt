@@ -2,17 +2,19 @@ package com.fieldfreshmarket.api.model.order.sell
 
 import com.fieldfreshmarket.api.model.BaseModel
 import com.fieldfreshmarket.api.model.Product
+import com.fieldfreshmarket.api.model.order.OrderStatus
 import java.time.Instant
-import javax.persistence.Entity
-import javax.persistence.JoinColumn
-import javax.persistence.ManyToOne
-import javax.persistence.Table
+import javax.persistence.*
 
 @Entity
 @Table(name="sell_products")
 class SellProduct(
+    @Enumerated(EnumType.STRING)
+    var status: OrderStatus = OrderStatus.PENDING,
     val earliestDate: Instant?,
     val latestDate: Instant?,
+    val serviceRadius: Double,
+    /* Per unit price (unit from Product) */
     val minPriceCents: Long,
     val volume: Double,
     // This is used to generate the S3 image URL based on the ID

@@ -3,7 +3,7 @@ package com.fieldfreshmarket.api.model.order.buy
 import com.fieldfreshmarket.api.model.Proxy
 import com.fieldfreshmarket.api.model.order.Order
 import com.fieldfreshmarket.api.model.order.OrderSide
-import java.time.Instant
+import com.fieldfreshmarket.api.model.order.OrderStatus
 import javax.persistence.*
 
 @Entity
@@ -14,5 +14,8 @@ class BuyOrder(
 ) : Order(proxy, side = OrderSide.BUY) {
 
     @OneToMany(mappedBy = "buyOrder", cascade = [CascadeType.REMOVE, CascadeType.PERSIST])
-    val buyProducts: List<BuyProduct> = listOf()
+    var buyProducts: List<BuyProduct> = listOf()
+
+    override val isActive: Boolean
+        get() = !buyProducts.none { it.status == OrderStatus.PENDING }
 }

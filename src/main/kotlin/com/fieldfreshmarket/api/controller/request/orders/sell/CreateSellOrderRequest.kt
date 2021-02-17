@@ -2,7 +2,6 @@ package com.fieldfreshmarket.api.controller.request.orders.sell
 
 import com.fieldfreshmarket.api.data.AccessGrant
 import com.fieldfreshmarket.api.data.orders.sell.CreateSellOrderData
-import com.fieldfreshmarket.api.data.proxy.CreateProxyData
 import org.springframework.lang.NonNull
 
 class CreateSellOrderRequest(

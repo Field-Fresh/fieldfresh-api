@@ -13,5 +13,5 @@ class OrderView (
 ) {
    val id: String = order.id!!
    val side: OrderSide = order.side
-   val status: OrderStatus = order.status
+   val isActive: Boolean = order.isActive
 }
