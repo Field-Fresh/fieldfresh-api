@@ -19,4 +19,6 @@ class User(
 
     @OneToMany(mappedBy = "user")
     val proxies: List<Proxy> = listOf()
+
+    fun ownsProxy(proxyId: String): Boolean = proxies.map { it.id }.contains(proxyId)
 }
