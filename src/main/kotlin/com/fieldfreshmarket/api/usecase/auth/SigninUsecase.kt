@@ -7,6 +7,7 @@ import com.fieldfreshmarket.api.data.auth.SignInResponseData
 import com.fieldfreshmarket.api.services.UserService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
+import com.fieldfreshmarket.api.model.Proxy
 import javax.persistence.EntityNotFoundException
 
 @Component
@@ -24,6 +25,8 @@ class SigninUsecase {
 
       val token: CognitoJWT?
 
+      val defaultProxy: Proxy = profile.proxies.firstOrNull() ?: throw IllegalStateException("Default Proxy is null on signin for user ${profile.id}")
+
       token = if (profile.verified) {
          cognitoUserClient.signin(data)
       } else {
@@ -33,7 +36,8 @@ class SigninUsecase {
       return SignInResponseData(
          tokens = token,
          verificationRequired = token == null,
-         user = token?.let { profile }
+         user = token?.let { profile },
+         defaultProxy = defaultProxy
       )
    }
 }

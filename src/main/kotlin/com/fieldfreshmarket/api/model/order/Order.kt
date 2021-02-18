@@ -11,11 +11,9 @@ import javax.persistence.*
 @Inheritance(
     strategy = InheritanceType.JOINED
 )
-open class Order(
+abstract class Order(
     @ManyToOne
     open val proxy: Proxy,
-    @Enumerated(EnumType.STRING)
-    open var status: OrderStatus = OrderStatus.PENDING,
     open var roundUpdatedTimestamp: Instant = Instant.now(),
     open var round: Int = 0,
     @Enumerated(EnumType.STRING)
@@ -24,4 +22,6 @@ open class Order(
 
     @OneToMany(mappedBy = "order")
     open val ratings: List<Rating> = listOf()
+
+    abstract val isActive: Boolean
 }

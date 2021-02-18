@@ -46,9 +46,8 @@ CREATE index on products (created_at);
 CREATE index on products (updated_at);
 
 CREATE TABLE orders (
-    id                  character(25) NOT NULL PRIMARY KEY,
+    id                  character(25) DEFAULT fieldfresh_id('or'::text) PRIMARY KEY,
     proxy_id             char(25) references proxies(id),
-    status varchar,
     round_updated_timestamp timestamp,
     round integer,
     created_at timestamp,
@@ -57,32 +56,25 @@ CREATE TABLE orders (
 
 CREATE index on orders (round);
 CREATE index on orders (round_updated_timestamp);
-CREATE index on orders (status);
 CREATE index on orders (created_at);
 CREATE index on orders (updated_at);
 
 CREATE TABLE buy_orders (
-    id                  character(25) DEFAULT fieldfresh_id('bo'::text) NOT NULL PRIMARY KEY,
-    created_at timestamp,
-    updated_at timestamp
+    id                  char(25) NOT NULL references orders(id),
+    primary key (id)
 );
-
-CREATE index on buy_orders (created_at);
-CREATE index on buy_orders (updated_at);
 
 CREATE TABLE sell_orders (
-    id                  character(25) DEFAULT fieldfresh_id('so'::text) NOT NULL PRIMARY KEY,
-    created_at timestamp,
-    updated_at timestamp
+    id                  char(25) NOT NULL references orders(id),
+    primary key (id)
 );
-
-CREATE index on sell_orders (created_at);
-CREATE index on sell_orders (updated_at);
 
 CREATE TABLE buy_products (
     id                  character(26) DEFAULT fieldfresh_id('bup'::text) NOT NULL PRIMARY KEY,
+    status varchar,
     earliest_date timestamp ,
     latest_date timestamp ,
+    service_radius float,
     max_price_cents bigint,
     volume float,
     buy_order_id char(25) references buy_orders(id),
@@ -97,11 +89,15 @@ CREATE index on buy_products (max_price_cents);
 CREATE index on buy_products (volume);
 CREATE index on buy_products (created_at);
 CREATE index on buy_products (updated_at);
+CREATE index on buy_products (status);
+
 
 CREATE TABLE sell_products (
     id                  character(26) DEFAULT fieldfresh_id('sup'::text) NOT NULL PRIMARY KEY,
+    status varchar,
     earliest_date timestamp ,
     latest_date timestamp ,
+    service_radius float,
     min_price_cents bigint,
     volume float,
     picture_count integer,
@@ -117,6 +113,7 @@ CREATE index on sell_products (min_price_cents);
 CREATE index on sell_products (volume);
 CREATE index on sell_products (created_at);
 CREATE index on sell_products (updated_at);
+CREATE index on sell_products (status);
 
 
 CREATE TABLE ratings (

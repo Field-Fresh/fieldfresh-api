@@ -11,7 +11,7 @@ interface BuyProductRepository : BaseRepository<BuyProduct> {
         """
             select bp.product.id as id, SUM(bp.volume) as totalVolume
             from BuyProduct bp
-            where bp.buyOrder.status = 'PENDING'
+            where bp.status = 'PENDING'
             group by bp.product.id
             order by totalVolume
         """

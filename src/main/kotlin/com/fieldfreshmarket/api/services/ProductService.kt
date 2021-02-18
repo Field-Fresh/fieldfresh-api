@@ -3,7 +3,7 @@ package com.fieldfreshmarket.api.services
 import com.fieldfreshmarket.api.data.products.PendingProductData
 import com.fieldfreshmarket.api.model.Product
 import com.fieldfreshmarket.api.model.order.OrderSide
-import com.fieldfreshmarket.api.repository.ProductsRepository
+import com.fieldfreshmarket.api.repository.products.ProductsRepository
 import com.fieldfreshmarket.api.usecase.products.GetPendingProductsUsecase
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
