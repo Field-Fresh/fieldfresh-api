@@ -7,6 +7,7 @@ import com.fieldfreshmarket.api.model.order.OrderSide
 import com.fieldfreshmarket.api.model.order.buy.BuyProduct
 import com.fieldfreshmarket.api.model.order.sell.SellOrder
 import com.fieldfreshmarket.api.model.order.sell.SellProduct
+import com.fieldfreshmarket.api.repository.ProxyRepository
 import com.fieldfreshmarket.api.repository.order.BuyProductRepository
 import com.fieldfreshmarket.api.repository.order.OrdersRepository
 import com.fieldfreshmarket.api.repository.order.SellProductRepository
@@ -22,6 +23,9 @@ class OrdersService {
 
     @Autowired
     private lateinit var orderRepository: OrdersRepository
+
+    @Autowired
+    private lateinit var proxyRepository: ProxyRepository
 
     @Autowired
     private lateinit var sellProductsRepository: SellProductRepository
@@ -42,17 +46,15 @@ class OrdersService {
 
     fun getBuyProducts(data: GetOrderProductsData): List<BuyProduct> {
         val proxyId = data.proxyId
-        if (!data.grant.user.ownsProxy(proxyId)) {
-            throw IllegalArgumentException("No Proxy with id: $data.proxyId")
-        }
+        proxyRepository.findByIdForUser(proxyId, data.grant.user)
+            ?: throw IllegalArgumentException("No Proxy with id: $data.proxyId")
         return buyProductsRepository.getAllFor(proxyId, data.status)
     }
 
     fun getSellProducts(data: GetOrderProductsData): List<SellProduct> {
         val proxyId = data.proxyId
-        if (!data.grant.user.ownsProxy(proxyId)) {
-            throw IllegalArgumentException("No Proxy with id: $data.proxyId")
-        }
+        proxyRepository.findByIdForUser(proxyId, data.grant.user)
+            ?: throw IllegalArgumentException("No Proxy with id: $data.proxyId")
         return sellProductsRepository.getAllFor(proxyId, data.status)
     }
 
