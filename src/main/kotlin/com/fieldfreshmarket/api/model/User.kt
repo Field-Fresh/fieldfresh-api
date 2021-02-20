@@ -1,6 +1,7 @@
 package com.fieldfreshmarket.api.model
 
 import javax.persistence.Entity
+import javax.persistence.FetchType
 import javax.persistence.OneToMany
 import javax.persistence.Table
 
@@ -19,4 +20,6 @@ class User(
 
     @OneToMany(mappedBy = "user")
     val proxies: List<Proxy> = listOf()
+
+    fun ownsProxy(proxyId: String): Boolean = proxies.map { it.id }.contains(proxyId)
 }

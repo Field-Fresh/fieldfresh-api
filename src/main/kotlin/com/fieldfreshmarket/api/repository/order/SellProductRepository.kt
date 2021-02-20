@@ -1,5 +1,7 @@
 package com.fieldfreshmarket.api.repository.order
 
+import com.fieldfreshmarket.api.model.order.OrderStatus
+import com.fieldfreshmarket.api.model.order.buy.BuyProduct
 import com.fieldfreshmarket.api.model.order.sell.SellOrder
 import com.fieldfreshmarket.api.model.order.sell.SellProduct
 import com.fieldfreshmarket.api.repository.BaseRepository
@@ -20,9 +22,10 @@ interface SellProductRepository : BaseRepository<SellProduct> {
 
     @Query(
         """
-            select sp.sellOrder
+            select sp
             from SellProduct sp
+            where sp.status = :status and sp.sellOrder.proxy.id = :proxyId
         """
     )
-    fun getAllSellOrders(): List<SellOrder>
+    fun getAllFor(proxyId: String, status: OrderStatus): List<SellProduct>
 }

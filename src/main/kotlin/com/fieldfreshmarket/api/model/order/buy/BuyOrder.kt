@@ -5,12 +5,13 @@ import com.fieldfreshmarket.api.model.order.Order
 import com.fieldfreshmarket.api.model.order.OrderSide
 import com.fieldfreshmarket.api.model.order.OrderStatus
 import javax.persistence.*
+import kotlin.jvm.Transient
 
 @Entity
 @Table(name="buy_orders")
 @PrimaryKeyJoinColumn(name="id")
 class BuyOrder(
-    proxy: Proxy
+    proxy: Proxy,
 ) : Order(proxy, side = OrderSide.BUY) {
 
     @OneToMany(mappedBy = "buyOrder", cascade = [CascadeType.REMOVE, CascadeType.PERSIST])

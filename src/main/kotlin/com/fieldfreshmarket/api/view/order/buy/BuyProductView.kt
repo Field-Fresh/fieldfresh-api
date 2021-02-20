@@ -1,6 +1,7 @@
 package com.fieldfreshmarket.api.view.order.buy
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fieldfreshmarket.api.model.order.OrderStatus
 import com.fieldfreshmarket.api.model.order.buy.BuyProduct
 import com.fieldfreshmarket.api.view.ProductView
 import java.time.Instant
@@ -16,4 +17,5 @@ class BuyProductView (
    val serviceRadius: Double = buyProduct.serviceRadius
    val product: ProductView = ProductView(buyProduct.product)
    val buyOrderId: String = buyProduct.buyOrder.id!!
+   val status: OrderStatus = buyProduct.status
 }
