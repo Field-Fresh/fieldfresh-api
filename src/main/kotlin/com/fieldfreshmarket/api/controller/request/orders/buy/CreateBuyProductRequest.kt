@@ -19,8 +19,6 @@ class CreateBuyProductRequest(
     val volume: Double,
     @get:NonNull
     val productId: String,
-    @get:NonNull
-    val serviceRadius: Double
 ) {
     fun toData(): CreateBuyProductData =
         CreateBuyProductData(
@@ -28,7 +26,6 @@ class CreateBuyProductRequest(
             latestDate = latestDate,
             maxPriceCents = maxPriceCents,
             volume = volume,
-            productId = productId,
-            serviceRadius = serviceRadius
+            productId = productId
         )
 }

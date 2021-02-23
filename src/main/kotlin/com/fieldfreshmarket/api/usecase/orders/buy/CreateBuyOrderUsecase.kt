@@ -81,8 +81,7 @@ class CreateBuyOrderUsecase {
             maxPriceCents = maxPriceCents,
             volume = volume,
             buyOrder = buyOrder,
-            product = product,
-            serviceRadius = serviceRadius
+            product = product
         )
 
     private fun LocalDate.convertToInstant(): Instant = atStartOfDay().toInstant(ZoneOffset.UTC)

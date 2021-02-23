@@ -14,7 +14,6 @@ class BuyProductView (
    val latestDate: Instant? = buyProduct.latestDate
    val maxPriceCents: Long = buyProduct.maxPriceCents
    val volume: Double = buyProduct.volume
-   val serviceRadius: Double = buyProduct.serviceRadius
    val product: ProductView = ProductView(buyProduct.product)
    val buyOrderId: String = buyProduct.buyOrder.id!!
    val status: OrderStatus = buyProduct.status

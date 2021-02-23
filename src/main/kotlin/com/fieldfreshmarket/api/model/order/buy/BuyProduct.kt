@@ -11,7 +11,6 @@ import javax.persistence.*
 class BuyProduct(
     @Enumerated(EnumType.STRING)
     var status: OrderStatus = OrderStatus.PENDING,
-    val serviceRadius: Double,
     val earliestDate: Instant?,
     val latestDate: Instant?,
     val maxPriceCents: Long,
