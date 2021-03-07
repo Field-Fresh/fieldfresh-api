@@ -24,5 +24,6 @@ class SellProduct(
     @ManyToOne(optional = false)
     @JoinColumn(name="product_id")
     val product: Product,
+    var canCancel: Boolean? = true,
     val pictureUrl: String? = null
 ): BaseModel()

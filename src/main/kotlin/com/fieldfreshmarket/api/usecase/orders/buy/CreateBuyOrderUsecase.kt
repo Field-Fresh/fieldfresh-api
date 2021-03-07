@@ -2,6 +2,8 @@ package com.fieldfreshmarket.api.usecase.orders.buy
 
 import com.fieldfreshmarket.api.data.orders.buy.CreateBuyOrderData
 import com.fieldfreshmarket.api.data.orders.buy.CreateBuyProductData
+import com.fieldfreshmarket.api.messaging.MatePublisher
+import com.fieldfreshmarket.api.messaging.types.toMessage
 import com.fieldfreshmarket.api.model.Product
 import com.fieldfreshmarket.api.model.Proxy
 import com.fieldfreshmarket.api.model.order.buy.BuyOrder
@@ -26,6 +28,9 @@ class CreateBuyOrderUsecase {
 
     @Autowired
     private lateinit var productRepository: ProductsRepository
+
+    @Autowired
+    private lateinit var matePublisher: MatePublisher
 
     // TODO need to figure out a cleaner way to reduce this duplication
     fun execute(data: CreateBuyOrderData): BuyOrder {
@@ -58,7 +63,12 @@ class CreateBuyOrderUsecase {
             throw EntityNotFoundException("Some products dont exist")
         }
 
-        return data.toModel(proxy, products).also { buyOrderRepository.save(it) }
+        val order = data.toModel(proxy, products)
+            .also {
+                buyOrderRepository.save(it)
+            }
+
+        return order
     }
 
     private fun CreateBuyOrderData.toModel(

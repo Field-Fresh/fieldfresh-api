@@ -20,5 +20,6 @@ class BuyProduct(
     val buyOrder: BuyOrder,
     @ManyToOne
     @JoinColumn(name="product_id")
-    val product: Product
+    val product: Product,
+    var canCancel: Boolean? = true
 ): BaseModel()

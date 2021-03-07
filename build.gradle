@@ -51,6 +51,7 @@ dependencies {
     implementation 'org.postgresql:postgresql:42.2.7'
     implementation platform("software.amazon.awssdk:bom:$aws_version")
     implementation "software.amazon.awssdk:sqs"
+    implementation "software.amazon.awssdk:sns"
     implementation "software.amazon.awssdk:ses"
     implementation "software.amazon.awssdk:ssm"
     implementation "software.amazon.awssdk:cognitoidentityprovider"

@@ -12,6 +12,7 @@ class ProductView (
    val productId: String = product.id!!
    val type: String = product.type
    val units: String = product.unit
+   val imageUrl: String = product.imageUrl
    val category: String = product.category
    val family: String = product.family
    val classType: ClassType = product.classType
