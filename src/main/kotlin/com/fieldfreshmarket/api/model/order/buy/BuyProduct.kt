@@ -1,25 +1,27 @@
 package com.fieldfreshmarket.api.model.order.buy
 
-import com.fieldfreshmarket.api.model.BaseModel
 import com.fieldfreshmarket.api.model.Product
+import com.fieldfreshmarket.api.model.order.OrderProduct
 import com.fieldfreshmarket.api.model.order.OrderStatus
 import java.time.Instant
-import javax.persistence.*
+import javax.persistence.Entity
+import javax.persistence.JoinColumn
+import javax.persistence.ManyToOne
+import javax.persistence.Table
 
 @Entity
-@Table(name="buy_products")
+@Table(name = "buy_products")
 class BuyProduct(
-    @Enumerated(EnumType.STRING)
-    var status: OrderStatus = OrderStatus.PENDING,
-    val earliestDate: Instant?,
-    val latestDate: Instant?,
     val maxPriceCents: Long,
     val volume: Double,
     @ManyToOne
-    @JoinColumn(name="buy_order_id")
+    @JoinColumn(name = "buy_order_id")
     val buyOrder: BuyOrder,
-    @ManyToOne
-    @JoinColumn(name="product_id")
-    val product: Product,
-    var canCancel: Boolean? = true
-): BaseModel()
+    status: OrderStatus = OrderStatus.PENDING,
+    earliestDate: Instant?,
+    latestDate: Instant?,
+    product: Product,
+    canCancel: Boolean? = true
+) : OrderProduct(
+    status, earliestDate, latestDate, product, canCancel
+)

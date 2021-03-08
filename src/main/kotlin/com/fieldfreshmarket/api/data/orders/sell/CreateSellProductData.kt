@@ -1,12 +1,13 @@
 package com.fieldfreshmarket.api.data.orders.sell
 
+import com.fieldfreshmarket.api.data.orders.CreateProductOrderData
 import java.time.LocalDate
 
 data class CreateSellProductData (
-    val earliestDate: LocalDate,
-    val latestDate: LocalDate,
+    override val earliestDate: LocalDate,
+    override val latestDate: LocalDate,
+    override val productId: String,
     val minPriceCents: Long,
     val volume: Double,
-    val productId: String,
     val serviceRadius: Double
-)
+): CreateProductOrderData

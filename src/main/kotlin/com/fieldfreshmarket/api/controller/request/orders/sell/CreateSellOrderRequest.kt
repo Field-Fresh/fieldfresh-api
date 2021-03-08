@@ -15,6 +15,6 @@ class CreateSellOrderRequest(
         CreateSellOrderData(
             grant = grant,
             proxyId = proxyId,
-            sellProducts = sellProducts.map { it.toData() }
+            orderProducts = sellProducts.map { it.toData() }
         )
 }

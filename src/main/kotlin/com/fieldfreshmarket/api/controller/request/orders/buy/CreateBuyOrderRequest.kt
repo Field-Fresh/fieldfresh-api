@@ -16,6 +16,6 @@ class CreateBuyOrderRequest(
         CreateBuyOrderData(
             grant = grant,
             proxyId = proxyId,
-            buyProducts = buyProducts.map { it.toData() }
+            orderProducts = buyProducts.map { it.toData() }
         )
 }

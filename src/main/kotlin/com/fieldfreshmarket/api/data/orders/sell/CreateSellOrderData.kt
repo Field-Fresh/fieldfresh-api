@@ -1,9 +1,10 @@
 package com.fieldfreshmarket.api.data.orders.sell
 
 import com.fieldfreshmarket.api.data.AccessGrant
+import com.fieldfreshmarket.api.data.orders.CreateOrderData
 
 data class CreateSellOrderData (
-    val grant: AccessGrant,
-    val proxyId: String,
-    val sellProducts: List<CreateSellProductData>,
-)
+    override val grant: AccessGrant,
+    override val proxyId: String,
+    override val orderProducts: List<CreateSellProductData>,
+) : CreateOrderData<CreateSellProductData>
