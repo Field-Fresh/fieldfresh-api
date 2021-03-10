@@ -39,4 +39,6 @@ interface SellProductRepository : BaseRepository<SellProduct> {
         """
     )
     fun getAll(status: OrderStatus, pageable: Pageable): Page<SellProduct>
+
+    fun findById(id: String): SellProduct?
 }

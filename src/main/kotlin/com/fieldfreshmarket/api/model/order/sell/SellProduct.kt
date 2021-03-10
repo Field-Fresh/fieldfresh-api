@@ -14,7 +14,7 @@ import javax.persistence.Table
 class SellProduct(
     val serviceRadius: Double,
     /* Per unit price (unit from Product) */
-    val volume: Double,
+    var volume: Double,
     val minPriceCents: Long,
     // This is used to generate the S3 image URL based on the ID
     @ManyToOne(optional = false)

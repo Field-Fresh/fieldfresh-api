@@ -13,7 +13,7 @@ import javax.persistence.Table
 @Table(name = "buy_products")
 class BuyProduct(
     val maxPriceCents: Long,
-    val volume: Double,
+    var volume: Double,
     @ManyToOne
     @JoinColumn(name = "buy_order_id")
     val buyOrder: BuyOrder,
