@@ -6,9 +6,12 @@ import com.fieldfreshmarket.api.controller.request.orders.GetOrderProductRequest
 import com.fieldfreshmarket.api.controller.request.orders.sell.CreateSellOrderRequest
 import com.fieldfreshmarket.api.controller.response.orders.GetOrdersResponse
 import com.fieldfreshmarket.api.core.Controller
+import com.fieldfreshmarket.api.model.order.Match
+import com.fieldfreshmarket.api.model.order.OrderSide
 import com.fieldfreshmarket.api.services.orders.OrdersService
 import com.fieldfreshmarket.api.usecase.orders.buy.CreateBuyOrderUsecase
 import com.fieldfreshmarket.api.usecase.orders.sell.CreateSellOrderUsecase
+import com.fieldfreshmarket.api.view.order.MatchView
 import com.fieldfreshmarket.api.view.order.buy.BuyOrderDetailView
 import com.fieldfreshmarket.api.view.order.buy.BuyProductView
 import com.fieldfreshmarket.api.view.order.sell.SellOrderDetailView
@@ -48,5 +51,9 @@ class OrderController : Controller() {
     @PostMapping("/buy")
     fun createBuy(@RequestBody request: CreateBuyOrderRequest): BuyOrderDetailView =
         BuyOrderDetailView(createBuyOrderUsecase.execute(request.toData(grant)))
+
+    @GetMapping("/matches")
+    fun getMatches(proxyId: String, side: OrderSide): List<MatchView> =
+        ordersService.getMatches(grant, proxyId, side).map { MatchView(it) }
 
 }

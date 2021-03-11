@@ -4,6 +4,8 @@ import com.fieldfreshmarket.api.model.order.OrderStatus
 import com.fieldfreshmarket.api.model.order.buy.BuyOrder
 import com.fieldfreshmarket.api.model.order.buy.BuyProduct
 import com.fieldfreshmarket.api.repository.BaseRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.Query
 
 interface BuyProductRepository : BaseRepository<BuyProduct> {
@@ -28,4 +30,16 @@ interface BuyProductRepository : BaseRepository<BuyProduct> {
         """
     )
     fun getAllFor(proxyId: String, status: OrderStatus): List<BuyProduct>
+
+
+    @Query(
+        """
+            select bp 
+            from BuyProduct bp
+            where bp.status = :status
+        """
+    )
+    fun getAll(status: OrderStatus, pageable: Pageable): Page<BuyProduct>
+
+    fun findById(id: String): BuyProduct?
 }

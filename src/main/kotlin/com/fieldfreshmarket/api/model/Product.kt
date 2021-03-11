@@ -27,6 +27,7 @@ class Product(
     @Field
     val family: String,
     val unit: String,
+    val imageUrl: String,
     @Enumerated(EnumType.STRING)
     val classType: ClassType
 ) : BaseModel()
