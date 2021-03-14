@@ -4,7 +4,9 @@ import com.fieldfreshmarket.api.controller.request.orders.GetOrdersRequest
 import com.fieldfreshmarket.api.controller.request.orders.buy.CreateBuyOrderRequest
 import com.fieldfreshmarket.api.controller.request.orders.GetOrderProductRequest
 import com.fieldfreshmarket.api.controller.request.orders.sell.CreateSellOrderRequest
+import com.fieldfreshmarket.api.controller.response.orders.GetBuyOrderDetails
 import com.fieldfreshmarket.api.controller.response.orders.GetOrdersResponse
+import com.fieldfreshmarket.api.controller.response.orders.GetSellOrderDetails
 import com.fieldfreshmarket.api.core.Controller
 import com.fieldfreshmarket.api.model.order.Match
 import com.fieldfreshmarket.api.model.order.OrderSide
@@ -36,6 +38,14 @@ class OrderController : Controller() {
     fun get(request: GetOrdersRequest): GetOrdersResponse =
         GetOrdersResponse(ordersService.getOrders(request.toData(grant)))
 
+    @GetMapping("sell/{id}")
+    fun getSell(@PathVariable(name = "id") id: String): GetSellOrderDetails =
+        GetSellOrderDetails(ordersService.getSellProduct(id, grant))
+
+    @GetMapping("buy/{id}")
+    fun getBuy(@PathVariable(name = "id") id: String): GetBuyOrderDetails =
+        GetBuyOrderDetails(ordersService.getBuyProduct(id, grant))
+
     @GetMapping("/buy")
     fun getBuyProducts(request: GetOrderProductRequest): List<BuyProductView> =
         ordersService.getBuyProducts(request.toData(grant)).map { BuyProductView(it) }
@@ -55,5 +65,15 @@ class OrderController : Controller() {
     @GetMapping("/matches")
     fun getMatches(proxyId: String, side: OrderSide): List<MatchView> =
         ordersService.getMatches(grant, proxyId, side).map { MatchView(it) }
+
+    @PutMapping("/sell/{id}/cancel")
+    fun cancelSell(@PathVariable(name = "id") id: String) {
+        ordersService.cancelSellOrder(id, grant)
+    }
+
+    @PutMapping("/buy/{id}/cancel")
+    fun cancelBuy(@PathVariable(name = "id") id: String) {
+        ordersService.cancelBuyOrder(id, grant)
+    }
 
 }

@@ -28,4 +28,5 @@ interface MatchesRepository : BaseRepository<Match> {
         """
     )
     fun getSellMatchesForProxy(proxy: Proxy): List<Match>
+    
 }

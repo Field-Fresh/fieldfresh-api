@@ -16,5 +16,5 @@ abstract class OrderProduct(
     @ManyToOne(optional = false)
     @JoinColumn(name="product_id")
     val product: Product,
-    var canCancel: Boolean? = true,
+    var canCancel: Boolean = true,
 ) : BaseModel()

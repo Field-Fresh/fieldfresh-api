@@ -4,9 +4,7 @@ import com.fieldfreshmarket.api.data.AccessGrant
 import com.fieldfreshmarket.api.data.orders.GetOrderProductsData
 import com.fieldfreshmarket.api.data.orders.GetOrdersData
 import com.fieldfreshmarket.api.data.orders.matches.CreateMatchData
-import com.fieldfreshmarket.api.model.order.Match
-import com.fieldfreshmarket.api.model.order.Order
-import com.fieldfreshmarket.api.model.order.OrderSide
+import com.fieldfreshmarket.api.model.order.*
 import com.fieldfreshmarket.api.model.order.buy.BuyProduct
 import com.fieldfreshmarket.api.model.order.sell.SellProduct
 import com.fieldfreshmarket.api.repository.ProxyRepository
@@ -19,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import javax.persistence.EntityNotFoundException
 
 @Service
 @Transactional
@@ -84,6 +83,33 @@ class OrdersService {
 
     fun processMatches(batchMatchData: List<CreateMatchData>) {
         batchCreateMatchesUsecase.execute(batchMatchData)
+    }
+
+    fun getSellProduct(id: String, grant: AccessGrant): SellProduct = sellProductsRepository.findByIdForUser(id, grant.user)
+        ?: throw EntityNotFoundException("Could not find Order with id: $id.")
+
+    fun getBuyProduct(id: String, grant: AccessGrant): BuyProduct = buyProductsRepository.findByIdForUser(id, grant.user)
+        ?: throw EntityNotFoundException("Could not find Order with id: $id.")
+
+    fun cancelSellOrder(id: String, grant: AccessGrant) {
+        getSellProduct(id, grant)
+            .also { order ->
+                doCancel(order) { sellProductsRepository.save(it) }
+            }
+    }
+
+    fun cancelBuyOrder(id: String, grant: AccessGrant) {
+        getBuyProduct(id, grant)
+            .also { order ->
+                doCancel(order) { buyProductsRepository.save(it) }
+            }
+    }
+
+    private fun <O : OrderProduct> doCancel(order: O, onCompleteCancellation: (O) -> O) {
+        if (!order.canCancel || order.status == OrderStatus.CANCELLED) {
+            throw IllegalStateException("Cannot cancel order with id: ${order.id}")
+        }
+        onCompleteCancellation.invoke(order.apply { status = OrderStatus.CANCELLED })
     }
 
 }

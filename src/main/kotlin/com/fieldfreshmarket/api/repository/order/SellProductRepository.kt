@@ -1,5 +1,6 @@
 package com.fieldfreshmarket.api.repository.order
 
+import com.fieldfreshmarket.api.model.User
 import com.fieldfreshmarket.api.model.order.OrderStatus
 import com.fieldfreshmarket.api.model.order.buy.BuyProduct
 import com.fieldfreshmarket.api.model.order.sell.SellOrder
@@ -41,4 +42,12 @@ interface SellProductRepository : BaseRepository<SellProduct> {
     fun getAll(status: OrderStatus, pageable: Pageable): Page<SellProduct>
 
     fun findById(id: String): SellProduct?
+
+    @Query(
+        """
+            select sp from SellProduct sp
+            where sp.sellOrder.proxy.user = :user and sp.id = :id
+        """
+    )
+    fun findByIdForUser(id: String, user: User): SellProduct?
 }
