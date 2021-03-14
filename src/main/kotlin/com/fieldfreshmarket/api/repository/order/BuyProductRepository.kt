@@ -1,7 +1,7 @@
 package com.fieldfreshmarket.api.repository.order
 
+import com.fieldfreshmarket.api.model.User
 import com.fieldfreshmarket.api.model.order.OrderStatus
-import com.fieldfreshmarket.api.model.order.buy.BuyOrder
 import com.fieldfreshmarket.api.model.order.buy.BuyProduct
 import com.fieldfreshmarket.api.repository.BaseRepository
 import org.springframework.data.domain.Page
@@ -42,4 +42,12 @@ interface BuyProductRepository : BaseRepository<BuyProduct> {
     fun getAll(status: OrderStatus, pageable: Pageable): Page<BuyProduct>
 
     fun findById(id: String): BuyProduct?
+
+    @Query(
+        """
+            select bp from BuyProduct bp
+            where bp.buyOrder.proxy.user = :user and bp.id = :id
+        """
+    )
+    fun findByIdForUser(id: String, user: User): BuyProduct?
 }

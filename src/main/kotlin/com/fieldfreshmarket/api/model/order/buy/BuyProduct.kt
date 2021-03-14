@@ -1,13 +1,11 @@
 package com.fieldfreshmarket.api.model.order.buy
 
 import com.fieldfreshmarket.api.model.Product
+import com.fieldfreshmarket.api.model.order.Match
 import com.fieldfreshmarket.api.model.order.OrderProduct
 import com.fieldfreshmarket.api.model.order.OrderStatus
 import java.time.Instant
-import javax.persistence.Entity
-import javax.persistence.JoinColumn
-import javax.persistence.ManyToOne
-import javax.persistence.Table
+import javax.persistence.*
 
 @Entity
 @Table(name = "buy_products")
@@ -21,7 +19,10 @@ class BuyProduct(
     earliestDate: Instant?,
     latestDate: Instant?,
     product: Product,
-    canCancel: Boolean? = true
+    canCancel: Boolean = true
 ) : OrderProduct(
     status, earliestDate, latestDate, product, canCancel
-)
+) {
+    @OneToMany(mappedBy = "buyProduct")
+    val matches: List<Match> = listOf()
+}
