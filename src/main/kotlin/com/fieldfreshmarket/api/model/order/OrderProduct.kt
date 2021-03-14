@@ -2,8 +2,6 @@ package com.fieldfreshmarket.api.model.order
 
 import com.fieldfreshmarket.api.model.BaseModel
 import com.fieldfreshmarket.api.model.Product
-import com.fieldfreshmarket.api.model.Proxy
-import com.fieldfreshmarket.api.model.Rating
 import java.time.Instant
 import javax.persistence.*
 
@@ -16,5 +14,5 @@ abstract class OrderProduct(
     @ManyToOne(optional = false)
     @JoinColumn(name="product_id")
     val product: Product,
-    var canCancel: Boolean = true,
+    var canCancel: Boolean = true
 ) : BaseModel()

@@ -2,8 +2,6 @@ package com.fieldfreshmarket.api.repository.order
 
 import com.fieldfreshmarket.api.model.User
 import com.fieldfreshmarket.api.model.order.OrderStatus
-import com.fieldfreshmarket.api.model.order.buy.BuyProduct
-import com.fieldfreshmarket.api.model.order.sell.SellOrder
 import com.fieldfreshmarket.api.model.order.sell.SellProduct
 import com.fieldfreshmarket.api.repository.BaseRepository
 import org.springframework.data.domain.Page

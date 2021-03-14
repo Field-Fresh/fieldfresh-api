@@ -1,14 +1,13 @@
 package com.fieldfreshmarket.api.controller
 
+import com.fieldfreshmarket.api.controller.request.orders.GetOrderProductRequest
 import com.fieldfreshmarket.api.controller.request.orders.GetOrdersRequest
 import com.fieldfreshmarket.api.controller.request.orders.buy.CreateBuyOrderRequest
-import com.fieldfreshmarket.api.controller.request.orders.GetOrderProductRequest
 import com.fieldfreshmarket.api.controller.request.orders.sell.CreateSellOrderRequest
 import com.fieldfreshmarket.api.controller.response.orders.GetBuyOrderDetails
 import com.fieldfreshmarket.api.controller.response.orders.GetOrdersResponse
 import com.fieldfreshmarket.api.controller.response.orders.GetSellOrderDetails
 import com.fieldfreshmarket.api.core.Controller
-import com.fieldfreshmarket.api.model.order.Match
 import com.fieldfreshmarket.api.model.order.OrderSide
 import com.fieldfreshmarket.api.services.orders.OrdersService
 import com.fieldfreshmarket.api.usecase.orders.buy.CreateBuyOrderUsecase
@@ -75,5 +74,4 @@ class OrderController : Controller() {
     fun cancelBuy(@PathVariable(name = "id") id: String) {
         ordersService.cancelBuyOrder(id, grant)
     }
-
 }
