@@ -10,7 +10,7 @@ services:
     depends_on:
       - db
     networks:
-      - api_network
+      - api_net
   db:
     image: kartoza/postgis:11.5-2.5
     restart: always
@@ -23,7 +23,6 @@ services:
     ports:
       - "8888:5432"
     networks:
-      - api_network
+      - api_net
 networks:
   api_net:
-    name: api_network
