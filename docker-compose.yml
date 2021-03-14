@@ -1,5 +1,16 @@
 version: "3.3"
 services:
+  api_service:
+    build: .
+    restart: always
+    ports:
+      - 9090:9090
+    environment:
+      - DB_URL=jdbc:postgresql://db:5432/fieldfresh?useSSL=false&allowPublicKeyRetrieval=true
+    depends_on:
+      - db
+    networks:
+      - api_net
   db:
     image: kartoza/postgis:11.5-2.5
     restart: always
@@ -11,3 +22,8 @@ services:
       - "8888"
     ports:
       - "8888:5432"
+    networks:
+      - api_net
+networks:
+  api_net:
+    name: api_net
