@@ -1,7 +1,7 @@
 version: "3.3"
 services:
   api_service:
-    image: asabedia/fieldfresh-api
+    image: 059394117896.dkr.ecr.us-east-1.amazonaws.com/fieldfresh-api:2e84640aa47cefacf42941f63c759f0fa63cdb29
     ports:
       - 9090:9090
     environment:

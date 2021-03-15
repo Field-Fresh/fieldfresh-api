@@ -16,5 +16,5 @@ workflows:
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           account-url: AWS_ECR_ACCOUNT_URL
           repo: ${AWS_ECR_REPO_NAME}
-          tag: ${CIRCLE_SHA1}
+          tag: 'latest'
           extra-build-args: '--build-arg AWS_ACCESS_KEY_ID_ARG=${AWS_ACCESS_KEY_ID} --build-arg AWS_SECRET_ACCESS_KEY_ARG=${AWS_SECRET_ACCESS_KEY} --build-arg AWS_REGION=${AWS_REGION}'
