@@ -1,8 +1,7 @@
 version: "3.3"
 services:
   api_service:
-    image: asabedia/fieldfresh-api:1
-    restart: always
+    image: asabedia/fieldfresh-api
     ports:
       - 9090:9090
     environment:
