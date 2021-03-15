@@ -6,7 +6,7 @@ services:
     ports:
       - 9090:9090
     environment:
-      - DB_URL=jdbc:postgresql://host.docker.internal:8888/fieldfresh?useSSL=false&allowPublicKeyRetrieval=true
+      - DB_URL=jdbc:postgresql://db:5432/fieldfresh?useSSL=false&allowPublicKeyRetrieval=true
     depends_on:
       - db
     networks:
