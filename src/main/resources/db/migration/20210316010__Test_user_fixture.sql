@@ -1,0 +1,1 @@
+INSERT INTO public.users (id, first_name, last_name, email, phone, cognito_sub, verified, username, created_at, updated_at) VALUES ('u_34enPEkffuV9dJdMhabaMT', 'Testing', 'Testing', 'neyonlime@gmail.com', null, 'bcf24b0c-08c7-4961-a48e-f2bc27b9db3b', true, null, '2021-03-16 16:28:17.157978', '2021-03-16 16:28:35.309696') ON CONFLICT (id) DO NOTHING;
