@@ -19,6 +19,7 @@ import com.fieldfreshmarket.api.view.order.sell.SellOrderDetailView
 import com.fieldfreshmarket.api.view.order.sell.SellProductView
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 @RestController
 @RequestMapping(path = ["/orders"])
@@ -54,11 +55,11 @@ class OrderController : Controller() {
         ordersService.getSellProducts(request.toData(grant)).map { SellProductView(it) }
 
     @PostMapping("/sell")
-    fun createSell(@RequestBody request: CreateSellOrderRequest): SellOrderDetailView =
+    fun createSell(@Valid @RequestBody request: CreateSellOrderRequest): SellOrderDetailView =
         SellOrderDetailView(createSellOrderUsecase.execute(request.toData(grant)))
 
     @PostMapping("/buy")
-    fun createBuy(@RequestBody request: CreateBuyOrderRequest): BuyOrderDetailView =
+    fun createBuy(@Valid @RequestBody request: CreateBuyOrderRequest): BuyOrderDetailView =
         BuyOrderDetailView(createBuyOrderUsecase.execute(request.toData(grant)))
 
     @GetMapping("/matches")

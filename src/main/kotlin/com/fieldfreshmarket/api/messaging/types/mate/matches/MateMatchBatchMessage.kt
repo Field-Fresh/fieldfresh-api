@@ -8,5 +8,6 @@ import java.time.Instant
 data class MateMatchBatchMessage(
     val batchId: Long,
     val totalMatches: Int,
+    val messageSize: Int,
     val matches: List<MateMatchMessage>
 ) : SNSMessage
