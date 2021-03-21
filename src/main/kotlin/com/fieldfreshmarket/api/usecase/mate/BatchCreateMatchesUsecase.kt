@@ -64,16 +64,16 @@ class BatchCreateMatchesUsecase {
             it.apply {
                 val remainingSellQuantity = sellProduct.volume - quantity
                 val remainingBuyQuantity = buyProduct.volume - quantity
+
+                sellProduct.volume = remainingSellQuantity
+                buyProduct.volume = remainingBuyQuantity
+
                 if (remainingSellQuantity == 0.0) {
                     sellProduct.status = OrderStatus.MATCHED
-                } else {
-                    sellProduct.volume = remainingSellQuantity
                 }
 
                 if (remainingBuyQuantity == 0.0) {
                     buyProduct.status = OrderStatus.MATCHED
-                } else {
-                    buyProduct.volume = remainingBuyQuantity
                 }
             }
         }

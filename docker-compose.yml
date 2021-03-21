@@ -18,9 +18,9 @@ services:
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=pass
     expose:
-      - "8888"
+      - "5432"
     ports:
-      - "8888:5432"
+      - "5432:5432"
     networks:
       - api_net
 networks:
