@@ -13,6 +13,7 @@ import com.fieldfreshmarket.api.view.ProductView
 class MatchView (
    match: Match
 ) {
+   val id: String  = match.id!!
    val quantity: Int = match.quantity
    val unitPriceCents: Long = match.unitPriceCents
    val sellProductId: String = match.sellProduct.id!!
