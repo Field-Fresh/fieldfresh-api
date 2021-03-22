@@ -3,7 +3,7 @@ services:
   api_service:
     image: 059394117896.dkr.ecr.us-east-1.amazonaws.com/fieldfresh-api:latest
     ports:
-      - 9090:9090
+      - 80:9090
     environment:
       - DB_URL=jdbc:postgresql://db:5432/fieldfresh?useSSL=false&allowPublicKeyRetrieval=true
     depends_on:
