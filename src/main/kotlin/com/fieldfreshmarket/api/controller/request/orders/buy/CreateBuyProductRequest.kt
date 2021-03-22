@@ -16,7 +16,7 @@ class CreateBuyProductRequest(
     @get:NonNull
     val maxPriceCents: Long,
     @get:NonNull
-    val volume: Double,
+    val volume: Int,
     @get:NonNull
     val productId: String,
 ) {

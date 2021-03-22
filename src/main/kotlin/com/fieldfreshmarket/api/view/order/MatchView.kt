@@ -13,12 +13,12 @@ import com.fieldfreshmarket.api.view.ProductView
 class MatchView (
    match: Match
 ) {
-   val quantity: Double = match.quantity
+   val quantity: Int = match.quantity
    val unitPriceCents: Long = match.unitPriceCents
    val sellProductId: String = match.sellProduct.id!!
    val buyProductId: String = match.buyProduct.id!!
    val round: Long = match.round
    val product: ProductView = ProductView(match.sellProduct.product)
-   val originalSellQuantity: Double = match.sellProduct.volume
-   val originalBuyQuantity: Double = match.buyProduct.volume
+   val originalSellQuantity: Int = match.sellProduct.volume
+   val originalBuyQuantity: Int = match.buyProduct.volume
 }

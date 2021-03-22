@@ -8,5 +8,5 @@ data class CreateBuyProductData(
     override val latestDate: LocalDate,
     override val productId: String,
     val maxPriceCents: Long,
-    val volume: Double,
+    val volume: Int,
 ): CreateProductOrderData

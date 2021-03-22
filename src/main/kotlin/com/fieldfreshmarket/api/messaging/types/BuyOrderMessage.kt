@@ -11,7 +11,7 @@ data class BuyOrderMessage(
     val earliestDate: Instant?,
     val latestDate: Instant?,
     val maxPriceCents: Long,
-    val volume: Double,
+    val volume: Int,
     val productId: String,
     val proxyId: String,
     val lat: Double,

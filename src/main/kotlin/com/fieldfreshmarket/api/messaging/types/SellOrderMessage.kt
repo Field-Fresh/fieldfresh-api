@@ -11,7 +11,7 @@ data class SellOrderMessage(
     val earliestDate: Instant?,
     val latestDate: Instant?,
     val minPriceCents: Long,
-    val volume: Double,
+    val volume: Int,
     val serviceRadius: Double,
     val productId: String,
     val proxyId: String,

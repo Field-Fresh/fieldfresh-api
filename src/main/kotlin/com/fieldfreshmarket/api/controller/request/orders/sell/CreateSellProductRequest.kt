@@ -15,7 +15,7 @@ class CreateSellProductRequest(
     @get:NonNull
     val minPriceCents: Long,
     @get:NonNull
-    val volume: Double,
+    val volume: Int,
     @get:NonNull
     val productId: String,
     @get:NonNull

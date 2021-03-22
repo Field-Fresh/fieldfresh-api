@@ -8,7 +8,7 @@ import javax.persistence.*
 @Entity
 @Table(name = "matches")
 class Match(
-    val quantity: Double,
+    val quantity: Int,
     val unitPriceCents: Long,
     @ManyToOne(cascade = [CascadeType.PERSIST])
     val sellProduct: SellProduct,

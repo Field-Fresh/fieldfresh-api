@@ -8,6 +8,6 @@ data class CreateSellProductData (
     override val latestDate: LocalDate,
     override val productId: String,
     val minPriceCents: Long,
-    val volume: Double,
+    val volume: Int,
     val serviceRadius: Double
 ): CreateProductOrderData

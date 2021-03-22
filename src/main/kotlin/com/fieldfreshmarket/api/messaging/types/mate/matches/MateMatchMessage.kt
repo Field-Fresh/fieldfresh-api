@@ -11,7 +11,7 @@ data class MateMatchMessage(
     val round: Long,
     val buyOrder: String,
     val sellOrder: String,
-    val volume: Double,
+    val volume: Int,
     val priceCents: Long
 ) : SNSMessage
 

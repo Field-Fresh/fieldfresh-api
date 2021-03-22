@@ -39,13 +39,13 @@ class BatchCreateMatchesUsecase {
                 )
             }
 
-            if (sellProduct.volume <= it.quantity) {
+            if (sellProduct.volume < it.quantity) {
                 throw IllegalArgumentException(
                     "Match (id: ${it.sellProductId} -> ${it.buyProductId}) quantity greater than supply"
                 )
             }
 
-            if (buyProduct.volume <= it.quantity) {
+            if (buyProduct.volume < it.quantity) {
                 throw IllegalArgumentException(
                     "Match (id: ${it.sellProductId} -> ${it.buyProductId}) quantity greater than demanded"
                 )
@@ -68,11 +68,11 @@ class BatchCreateMatchesUsecase {
                 sellProduct.volume = remainingSellQuantity
                 buyProduct.volume = remainingBuyQuantity
 
-                if (remainingSellQuantity == 0.0) {
+                if (remainingSellQuantity == 0) {
                     sellProduct.status = OrderStatus.MATCHED
                 }
 
-                if (remainingBuyQuantity == 0.0) {
+                if (remainingBuyQuantity == 0) {
                     buyProduct.status = OrderStatus.MATCHED
                 }
             }
