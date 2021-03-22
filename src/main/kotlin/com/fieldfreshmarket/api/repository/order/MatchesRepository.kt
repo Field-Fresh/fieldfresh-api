@@ -1,6 +1,7 @@
 package com.fieldfreshmarket.api.repository.order
 
 import com.fieldfreshmarket.api.model.Proxy
+import com.fieldfreshmarket.api.model.User
 import com.fieldfreshmarket.api.model.order.Match
 import com.fieldfreshmarket.api.repository.BaseRepository
 import org.springframework.data.jpa.repository.Query
@@ -22,4 +23,13 @@ interface MatchesRepository : BaseRepository<Match> {
         """
     )
     fun getSellMatchesForProxy(proxy: Proxy): List<Match>
+
+    @Query(
+        """
+            select m from Match m
+            where (m.sellProduct.sellOrder.proxy = :proxy 
+                OR m.buyProduct.buyOrder.proxy = :proxy) AND m.id = :id
+        """
+    )
+    fun findMyIdForProxy(id: String, proxy: Proxy): Match?
 }
