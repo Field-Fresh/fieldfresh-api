@@ -5,12 +5,15 @@ import com.fieldfreshmarket.api.controller.request.orders.GetOrdersRequest
 import com.fieldfreshmarket.api.controller.request.orders.buy.CreateBuyOrderRequest
 import com.fieldfreshmarket.api.controller.request.orders.sell.CreateSellOrderRequest
 import com.fieldfreshmarket.api.controller.response.orders.GetBuyOrderDetails
+import com.fieldfreshmarket.api.controller.response.orders.GetMatchDetails
 import com.fieldfreshmarket.api.controller.response.orders.GetOrdersResponse
 import com.fieldfreshmarket.api.controller.response.orders.GetSellOrderDetails
 import com.fieldfreshmarket.api.core.Controller
+import com.fieldfreshmarket.api.data.orders.matches.GetMatchDetailsData
 import com.fieldfreshmarket.api.model.order.OrderSide
 import com.fieldfreshmarket.api.services.orders.OrdersService
 import com.fieldfreshmarket.api.usecase.orders.buy.CreateBuyOrderUsecase
+import com.fieldfreshmarket.api.usecase.orders.match.GetMatchDetailsUsecase
 import com.fieldfreshmarket.api.usecase.orders.sell.CreateSellOrderUsecase
 import com.fieldfreshmarket.api.view.order.MatchView
 import com.fieldfreshmarket.api.view.order.buy.BuyOrderDetailView
@@ -33,6 +36,9 @@ class OrderController : Controller() {
 
     @Autowired
     private lateinit var createBuyOrderUsecase: CreateBuyOrderUsecase
+
+    @Autowired
+    private lateinit var getMatchDetailsUsecase: GetMatchDetailsUsecase
 
     @GetMapping("")
     fun get(request: GetOrdersRequest): GetOrdersResponse =
@@ -62,9 +68,23 @@ class OrderController : Controller() {
     fun createBuy(@Valid @RequestBody request: CreateBuyOrderRequest): BuyOrderDetailView =
         BuyOrderDetailView(createBuyOrderUsecase.execute(request.toData(grant)))
 
-    @GetMapping("/matches")
-    fun getMatches(proxyId: String, side: OrderSide): List<MatchView> =
+    //TODO might be able to merge this call to avoid a double call
+    @GetMapping("/{proxy_id}/matches")
+    fun getMatches(@PathVariable(name = "proxy_id") proxyId: String, side: OrderSide): List<MatchView> =
         ordersService.getMatches(grant, proxyId, side).map { MatchView(it) }
+
+    @GetMapping("/{proxy_id}/match/{id}")
+    fun getMatchDetails(
+        @PathVariable(name = "proxy_id") proxyId: String,
+        @PathVariable(name = "id") id: String
+    ): GetMatchDetails =
+        GetMatchDetails(getMatchDetailsUsecase.execute(
+            GetMatchDetailsData(
+                matchId = id,
+                proxyId = proxyId,
+                grant = grant
+            )
+        ))
 
     @PutMapping("/sell/{id}/cancel")
     fun cancelSell(@PathVariable(name = "id") id: String) {
