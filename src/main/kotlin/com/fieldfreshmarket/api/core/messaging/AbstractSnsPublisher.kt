@@ -49,22 +49,19 @@ abstract class AbstractSnsPublisher(
         type: String,
         messages: List<SNSMessage>,
         totalCount: Long,
-        batchSize: Int,
         batchId: String?
     ) = runBlocking {
-        messages.chunked(batchSize).forEach { chunk ->
-            chunk.map { message ->
-                sendMessageAsync(
-                    topicArn,
-                    type,
-                    BatchMessage(
-                        batchId ?: UUID.randomUUID().toString(),
-                        totalCount,
-                        message
-                    ))
-            }.forEach { it.await() }
-            logger.info("Published ${chunk.size} message/s to $topicArn")
-        }
+        messages.map { message ->
+            sendMessageAsync(
+                topicArn,
+                type,
+                BatchMessage(
+                    batchId ?: UUID.randomUUID().toString(),
+                    totalCount,
+                    message
+                ))
+        }.forEach { it.await() }
+        logger.info("Published ${messages.size} message/s to $topicArn")
     }
 
     fun stop() {

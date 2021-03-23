@@ -25,9 +25,8 @@ class MatePublisher(
         type: String,
         messages: List<SNSMessage>,
         totalCount: Long,
-        batchId: String? = null,
-        batchSize: Int = 25,
+        batchId: String? = null
     ) {
-        sendBatchMessage(properties.mateTopicArn, type, messages, totalCount, batchSize, batchId)
+        sendBatchMessage(properties.mateTopicArn, type, messages, totalCount, batchId)
     }
 }
