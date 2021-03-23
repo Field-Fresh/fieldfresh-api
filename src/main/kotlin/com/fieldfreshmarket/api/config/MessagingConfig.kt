@@ -7,6 +7,7 @@ import com.fieldfreshmarket.api.messaging.SQSMessageRouter
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import software.amazon.awssdk.services.sns.SnsAsyncClient
+import software.amazon.awssdk.services.sns.SnsClient
 
 @Configuration
 class MessagingConfig {
@@ -20,9 +21,9 @@ class MessagingConfig {
 
     @Bean
     fun mateMessagingConfig(
-        snsAsyncClient: SnsAsyncClient,
+        snsClient: SnsClient,
         fieldFreshProperties: FieldFreshProperties
     ): MatePublisher = MatePublisher(
-        snsAsyncClient, fieldFreshProperties
+        snsClient, fieldFreshProperties
     )
 }

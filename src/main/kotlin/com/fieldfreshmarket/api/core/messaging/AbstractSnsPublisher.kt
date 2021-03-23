@@ -7,13 +7,14 @@ import kotlinx.coroutines.future.await
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import software.amazon.awssdk.services.sns.SnsAsyncClient
+import software.amazon.awssdk.services.sns.SnsClient
 import software.amazon.awssdk.services.sns.model.PublishRequest
 import software.amazon.awssdk.services.sns.model.PublishResponse
 import java.util.*
 import kotlin.coroutines.CoroutineContext
 
 abstract class AbstractSnsPublisher(
-    private val sns: SnsAsyncClient
+    private val sns: SnsClient
 ) : CoroutineScope {
 
     private val supervisorJob = SupervisorJob()
@@ -40,7 +41,7 @@ abstract class AbstractSnsPublisher(
                 .targetArn(topicArn)
                 .message(gson.toJson(_message))
                 .build()
-            ).await()
+            )
         }
     }
 
