@@ -26,7 +26,7 @@ class SendOrdersForMatchingUsecase {
 
     fun execute(message: MateReadyMessage) {
 
-        val initialRequest = PageRequest.of(0, 1)
+        val initialRequest = PageRequest.of(0, 25)
         val batchId = message.round.toString()
 
         // Buy Products
