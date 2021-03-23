@@ -4,6 +4,7 @@ import com.fieldfreshmarket.api.data.orders.buy.CreateBuyOrderData
 import com.fieldfreshmarket.api.data.orders.buy.CreateBuyProductData
 import com.fieldfreshmarket.api.model.Product
 import com.fieldfreshmarket.api.model.Proxy
+import com.fieldfreshmarket.api.model.order.OrderStatus
 import com.fieldfreshmarket.api.model.order.buy.BuyOrder
 import com.fieldfreshmarket.api.model.order.buy.BuyProduct
 import com.fieldfreshmarket.api.repository.order.BuyOrdersRepository
@@ -46,7 +47,7 @@ class CreateBuyOrderUsecase : AbstractCreateOrderUsecase<CreateBuyOrderData, Buy
 
     override fun validOrThrow(data: CreateBuyOrderData, proxy: Proxy, products: Map<String, Product>) {
         val overlappingOrders: List<BuyProduct> =
-            buyOrderRepository.findOverlappingOrdersForProxy(products.keys, proxy)
+            buyOrderRepository.findOverlappingOrdersForProxy(products.keys, proxy, OrderStatus.PENDING)
         if (overlappingOrders.isNotEmpty()) {
             throw IllegalArgumentException("Cannot place multiple orders for the same product.")
         }

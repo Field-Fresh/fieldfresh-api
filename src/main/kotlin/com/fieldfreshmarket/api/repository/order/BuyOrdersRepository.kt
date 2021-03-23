@@ -1,6 +1,7 @@
 package com.fieldfreshmarket.api.repository.order
 
 import com.fieldfreshmarket.api.model.Proxy
+import com.fieldfreshmarket.api.model.order.OrderStatus
 import com.fieldfreshmarket.api.model.order.buy.BuyOrder
 import com.fieldfreshmarket.api.model.order.buy.BuyProduct
 import com.fieldfreshmarket.api.repository.BaseRepository
@@ -12,9 +13,9 @@ interface BuyOrdersRepository : BaseRepository<BuyOrder> {
         """
             Select bp
             from BuyProduct bp
-            where bp.product.id in :productIds
+            where bp.product.id in :productIds and bp.status = :status
             and bp.buyOrder.proxy = :proxy
         """
     )
-    fun findOverlappingOrdersForProxy(productIds: Set<String>, proxy: Proxy): List<BuyProduct>
+    fun findOverlappingOrdersForProxy(productIds: Set<String>, proxy: Proxy, status: OrderStatus): List<BuyProduct>
 }

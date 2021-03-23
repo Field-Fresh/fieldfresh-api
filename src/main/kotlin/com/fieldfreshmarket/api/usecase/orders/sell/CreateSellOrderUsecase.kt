@@ -4,6 +4,7 @@ import com.fieldfreshmarket.api.data.orders.sell.CreateSellOrderData
 import com.fieldfreshmarket.api.data.orders.sell.CreateSellProductData
 import com.fieldfreshmarket.api.model.Product
 import com.fieldfreshmarket.api.model.Proxy
+import com.fieldfreshmarket.api.model.order.OrderStatus
 import com.fieldfreshmarket.api.model.order.sell.SellOrder
 import com.fieldfreshmarket.api.model.order.sell.SellProduct
 import com.fieldfreshmarket.api.repository.order.SellOrdersRepository
@@ -46,7 +47,7 @@ class CreateSellOrderUsecase : AbstractCreateOrderUsecase<CreateSellOrderData, S
     private fun LocalDate.convertToInstant(): Instant = atStartOfDay().toInstant(ZoneOffset.UTC)
     override fun validOrThrow(data: CreateSellOrderData, proxy: Proxy, products: Map<String, Product>) {
         val overlappingOrders: List<SellProduct> =
-            sellOrderRepository.findOverlappingOrdersForProxy(products.keys, proxy)
+            sellOrderRepository.findOverlappingOrdersForProxy(products.keys, proxy, OrderStatus.PENDING)
         if (overlappingOrders.isNotEmpty()) {
             throw IllegalArgumentException("Cannot place multiple orders for the same product.")
         }
