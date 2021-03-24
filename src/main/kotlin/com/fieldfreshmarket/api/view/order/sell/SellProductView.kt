@@ -23,6 +23,7 @@ class SellProductView (
    val minPriceCents: Long = sellProduct.minPriceCents
    val serviceRadius: Double = sellProduct.serviceRadius
    val volume: Int = sellProduct.volume
+   val originalVolume: Int = sellProduct.originalVolume
    val product: ProductView = ProductView(sellProduct.product)
    val sellOrderId: String = sellProduct.sellOrder.id!!
    val isCancellable: Boolean = sellProduct.canCancel

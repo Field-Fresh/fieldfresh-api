@@ -41,7 +41,8 @@ class CreateSellOrderUsecase : AbstractCreateOrderUsecase<CreateSellOrderData, S
             volume = volume,
             sellOrder = sellOrder,
             product = product,
-            serviceRadius = serviceRadius
+            serviceRadius = serviceRadius,
+            originalVolume = volume
         )
 
     private fun LocalDate.convertToInstant(): Instant = atStartOfDay().toInstant(ZoneOffset.UTC)

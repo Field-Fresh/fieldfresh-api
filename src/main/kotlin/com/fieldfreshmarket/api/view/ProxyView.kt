@@ -13,6 +13,7 @@ class ProxyView (
    val streetAddress: String = proxy.streetAddress
    val city: String = proxy.city
    val country: String = proxy.country
+   val province: String = proxy.province
    val postalCode: String = proxy.postalCode
    val longitude: Double = proxy.longitude
    val latitude: Double = proxy.latitude

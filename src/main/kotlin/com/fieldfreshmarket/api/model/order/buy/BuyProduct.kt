@@ -15,6 +15,7 @@ import javax.persistence.*
 class BuyProduct(
     val maxPriceCents: Long,
     var volume: Int,
+    var originalVolume: Int,
     @ManyToOne
     @JoinColumn(name = "buy_order_id")
     @NotAudited

@@ -4,6 +4,8 @@ import com.fieldfreshmarket.api.data.orders.matches.GetMatchDetailsData
 import com.fieldfreshmarket.api.data.orders.matches.MatchDetailsData
 import com.fieldfreshmarket.api.model.Proxy
 import com.fieldfreshmarket.api.model.order.Match
+import com.fieldfreshmarket.api.model.order.Order
+import com.fieldfreshmarket.api.model.order.OrderSide
 import com.fieldfreshmarket.api.repository.ProxyRepository
 import com.fieldfreshmarket.api.repository.order.MatchesRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -25,13 +27,13 @@ class GetMatchDetailsUsecase {
         val match: Match = matchesRepository.findMyIdForProxy(data.matchId, grantedUserProxy)
             ?: throw EntityNotFoundException("Match not found.")
 
-        val matchedProxy: Proxy =
+        val sideToProxy: Pair<OrderSide, Proxy> =
             when {
                 match.sellProduct.sellOrder.proxy.id == grantedUserProxy.id -> {
-                    match.buyProduct.buyOrder.proxy
+                    OrderSide.SELL to match.buyProduct.buyOrder.proxy
                 }
                 match.buyProduct.buyOrder.proxy.id == grantedUserProxy.id -> {
-                    match.sellProduct.sellOrder.proxy
+                    OrderSide.BUY to match.sellProduct.sellOrder.proxy
                 }
                 else -> {
                     throw IllegalArgumentException("Proxy is not present.")
@@ -40,7 +42,8 @@ class GetMatchDetailsUsecase {
 
         return MatchDetailsData(
             match = match,
-            matchedProxy = matchedProxy
+            matchedProxy = sideToProxy.second,
+            side = sideToProxy.first
         )
     }
 }

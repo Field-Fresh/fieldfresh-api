@@ -6,6 +6,7 @@ import com.fieldfreshmarket.api.data.orders.matches.GetMatchDetailsData
 import com.fieldfreshmarket.api.data.orders.matches.MatchDetailsData
 import com.fieldfreshmarket.api.model.order.Match
 import com.fieldfreshmarket.api.model.order.Order
+import com.fieldfreshmarket.api.model.order.OrderSide
 import com.fieldfreshmarket.api.model.order.buy.BuyProduct
 import com.fieldfreshmarket.api.view.ProxyView
 import com.fieldfreshmarket.api.view.order.MatchView
@@ -22,4 +23,5 @@ class GetMatchDetails(
     val sellProduct: SellProductView = SellProductView(data.match.sellProduct)
     val buyProduct: BuyProductView = BuyProductView(data.match.buyProduct)
     val matchedProxy: ProxyView = ProxyView(data.matchedProxy)
+    val side: OrderSide = data.side
 }

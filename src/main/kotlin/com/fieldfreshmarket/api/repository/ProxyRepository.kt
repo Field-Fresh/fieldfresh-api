@@ -14,4 +14,7 @@ interface ProxyRepository: BaseRepository<Proxy> {
         """
     )
     fun findByIdForUser(id: String, user: User): Proxy?
+
+    @Query
+    fun findAllByUser(user: User): List<Proxy>
 }

@@ -17,4 +17,10 @@ class ProxyController : Controller() {
     @PostMapping("/new")
     fun create(@RequestBody request: CreateProxyRequest): ProxyView =
         ProxyView(proxyService.create(request.toData()))
+
+    @GetMapping
+    fun get(): List<ProxyView> = proxyService.get(grant).map { ProxyView(it) }
+
+    @GetMapping("/{id}")
+    fun getById(@PathVariable(name = "id") id: String): ProxyView = ProxyView(proxyService.getById(id, grant))
 }

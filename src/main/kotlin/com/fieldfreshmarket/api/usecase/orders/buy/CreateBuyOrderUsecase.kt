@@ -40,7 +40,8 @@ class CreateBuyOrderUsecase : AbstractCreateOrderUsecase<CreateBuyOrderData, Buy
             maxPriceCents = maxPriceCents,
             volume = volume,
             buyOrder = buyOrder,
-            product = product
+            product = product,
+            originalVolume = volume
         )
 
     private fun LocalDate.convertToInstant(): Instant = atStartOfDay().toInstant(ZoneOffset.UTC)

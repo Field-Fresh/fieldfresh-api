@@ -16,6 +16,7 @@ class SellProduct(
     val serviceRadius: Double,
     /* Per unit price (unit from Product) */
     var volume: Int,
+    var originalVolume: Int,
     val minPriceCents: Long,
     // This is used to generate the S3 image URL based on the ID
     @ManyToOne(optional = false)
