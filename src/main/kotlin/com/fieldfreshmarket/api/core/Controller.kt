@@ -9,11 +9,10 @@ import org.springframework.stereotype.Controller
 @Controller
 class Controller {
 
-   @Autowired
-   private lateinit var authService: AuthService
+    @Autowired
+    private lateinit var authService: AuthService
 
-   // This pulls the user from the DB everytime it is called
-   val grant: AccessGrant by lazy {
-      authService.getGrantForAuth()
-   }
+    // This pulls the user from the DB everytime it is called
+    val grant: AccessGrant
+        get() = authService.getGrantForAuth()
 }
