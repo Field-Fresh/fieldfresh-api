@@ -14,6 +14,6 @@ class UpdateUserRequest(
             firstName = firstName,
             lastName = lastName,
             phone = phone,
-            email = grant.accessTokenClaims.email
+            email = grant.user.email
         )
 }

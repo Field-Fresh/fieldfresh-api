@@ -1,12 +1,16 @@
 package com.fieldfreshmarket.api.usecase.auth
 
+import com.fieldfreshmarket.api.controller.request.proxy.CreateProxyRequest
 import com.fieldfreshmarket.api.core.cognito.client.CognitoUserClient
+import com.fieldfreshmarket.api.data.AccessGrant
+import com.fieldfreshmarket.api.data.OfflineGrant
 import com.fieldfreshmarket.api.data.auth.SignUpData
 import com.fieldfreshmarket.api.services.UserService
 import com.fieldfreshmarket.api.data.user.CreateUserData
 import com.fieldfreshmarket.api.data.user.UpdateUserData
 import com.fieldfreshmarket.api.usecase.user.UpdateUserUsecase
 import com.fieldfreshmarket.api.model.User
+import com.fieldfreshmarket.api.usecase.proxy.CreateProxyUsecase
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
@@ -21,6 +25,9 @@ class SignupUsecase {
 
    @Autowired
    private lateinit var updateUserUsecase: UpdateUserUsecase
+
+   @Autowired
+   private lateinit var createProxyUsecase: CreateProxyUsecase
 
    fun execute(data: SignUpData): User {
       val profile = userService.getProfileByEmail(data.email)
@@ -49,6 +56,8 @@ class SignupUsecase {
             lastName = data.lastName,
             phone = data.phone
          )
-      )
+      ).also {
+         createProxyUsecase.execute(OfflineGrant(it), data.proxy)
+      }
    }
 }

@@ -16,7 +16,7 @@ class ProxyController : Controller() {
 
     @PostMapping("/new")
     fun create(@RequestBody request: CreateProxyRequest): ProxyView =
-        ProxyView(proxyService.create(request.toData()))
+        ProxyView(proxyService.create(grant, request.toData()))
 
     @GetMapping
     fun get(): List<ProxyView> = proxyService.get(grant).map { ProxyView(it) }

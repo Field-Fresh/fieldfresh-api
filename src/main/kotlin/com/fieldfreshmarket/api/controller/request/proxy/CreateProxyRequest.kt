@@ -5,8 +5,6 @@ import org.springframework.lang.NonNull
 
 class CreateProxyRequest(
     @get:NonNull
-    val userId: String,
-    @get:NonNull
     val name: String,
 
     val description: String?,
@@ -27,7 +25,6 @@ class CreateProxyRequest(
 ) {
     fun toData(): CreateProxyData =
         CreateProxyData(
-            userId = userId,
             name = name,
             description = description,
             streetAddress = streetAddress,

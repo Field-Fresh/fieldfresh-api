@@ -1,10 +1,11 @@
 package com.fieldfreshmarket.api.usecase.proxy
 
+import com.fieldfreshmarket.api.data.AccessGrant
+import com.fieldfreshmarket.api.data.Grant
 import com.fieldfreshmarket.api.data.proxy.CreateProxyData
 import com.fieldfreshmarket.api.model.Proxy
 import com.fieldfreshmarket.api.model.User
 import com.fieldfreshmarket.api.repository.ProxyRepository
-import com.fieldfreshmarket.api.repository.UsersRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
@@ -13,15 +14,8 @@ class CreateProxyUsecase {
     @Autowired
     private lateinit var repository: ProxyRepository
 
-    @Autowired
-    private lateinit var usersRepository: UsersRepository
-
-
-    fun execute(data: CreateProxyData): Proxy {
-        val user = usersRepository.findById(data.userId)
-            ?: throw IllegalArgumentException("User with id: ${data.userId} does not exists.")
-
-        return repository.save(data.toModel(user))
+    fun execute(grant: Grant, data: CreateProxyData): Proxy {
+        return repository.save(data.toModel(grant.user))
     }
 
     private fun CreateProxyData.toModel(user: User): Proxy =

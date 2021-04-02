@@ -4,7 +4,6 @@ import com.fieldfreshmarket.api.core.cognito.client.CognitoUpdateInfo
 
 
 data class CreateProxyData(
-    val userId: String,
     val name: String,
     val description: String?,
     val streetAddress: String,

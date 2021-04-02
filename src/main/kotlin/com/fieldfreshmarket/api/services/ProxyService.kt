@@ -23,8 +23,8 @@ class ProxyService {
     @Autowired
     private lateinit var proxyRepository: ProxyRepository
 
-    fun create(data: CreateProxyData): Proxy {
-        return createProxyUsecase.execute(data)
+    fun create(grant: AccessGrant, data: CreateProxyData): Proxy {
+        return createProxyUsecase.execute(grant, data)
     }
 
     fun get(grant: AccessGrant): List<Proxy> = proxyRepository.findAllByUser(grant.user)
